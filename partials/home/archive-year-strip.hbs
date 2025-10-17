@@ -1,0 +1,43 @@
+{{!-- Homepage archive navigation linking to yearly sections on the archive channel --}}
+{{#match @custom.home_archive_strip "=" false}}
+{{else}}
+    {{#get "posts" limit="100" filter="tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]" order="published_at desc" as |archive_posts|}}
+        {{#if archive_posts}}
+            <section class="home-archive-strip border-y border-gray-200 bg-gray-50">
+                <div class="container mx-auto px-4 py-6">
+                    <div class="max-w-1100 mx-auto flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                        <h2 class="text-sm font-semibold tracking-wide uppercase text-gray-500">Browse by year</h2>
+                        <nav class="archive-year-links flex flex-wrap gap-3 md:flex-nowrap md:justify-end overflow-x-auto" aria-label="Archive years">
+                            {{#foreach archive_posts}}
+                                <a class="archive-year-link inline-flex items-center rounded-full border border-gray-300 px-3 py-1 text-sm font-semibold text-title transition hover:border-dark hover:bg-dark hover:text-white" href="/archive/#year-{{date published_at format="YYYY"}}-{{@index}}" data-year="{{date published_at format="YYYY"}}">{{date published_at format="YYYY"}}</a>
+                            {{/foreach}}
+                        </nav>
+                    </div>
+                </div>
+            </section>
+            {{#contentFor "scripts"}}
+            <script>
+                window.addEventListener('DOMContentLoaded', function () {
+                    var container = document.querySelector('.archive-year-links');
+                    if (!container) {
+                        return;
+                    }
+                    var seenYears = {};
+                    var links = Array.prototype.slice.call(container.querySelectorAll('.archive-year-link'));
+                    links.forEach(function (link) {
+                        var year = link.getAttribute('data-year');
+                        if (!year) {
+                            return;
+                        }
+                        if (seenYears[year]) {
+                            link.remove();
+                        } else {
+                            seenYears[year] = true;
+                        }
+                    });
+                });
+            </script>
+            {{/contentFor}}
+        {{/if}}
+    {{/get}}
+{{/match}}
