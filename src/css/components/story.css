@@ -27,7 +27,7 @@
   .story-image {
     @apply lg:col-span-2 lg:h-96 lg:pt-0;
   }
-  & > .not-feature-image {
+  &.story--no-image > .story-card {
     @apply lg:col-span-full;
   }
 }
