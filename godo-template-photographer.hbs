@@ -4,10 +4,6 @@
 {{!-- Publication Cover - partials/home/publication-cover.hbs --}}
 {{> "home/publication-cover"}}
 
-{{#unless pagination.prev}}
-    {{> "home/archive-year-strip"}}
-{{/unless}}
-
 <div class="photographer pb-vmin8">
     <div class="js-feed-entry grid md:grid-cols-2 lg:grid-cols-3">
         {{#foreach posts}}
