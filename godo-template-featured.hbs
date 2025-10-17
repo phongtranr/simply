@@ -9,6 +9,11 @@
     {{#if godo_featured_post}} {{#foreach godo_featured_post}}{{> "story/story-featured"}} {{/foreach}}{{/if}}
 {{/get}}
 
+{{#is "paged"}}
+{{else}}
+    {{> "home/archive-year-strip"}}
+{{/is}}
+
 <div class="site-post container mx-auto py-vmin8">
     <div class="js-feed-entry max-w-1100 mx-auto grid md:grid-cols-2 lg:grid-cols-12 gap-6">
         {{#foreach posts}}
