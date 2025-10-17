@@ -24,12 +24,6 @@
     }
   }
 
-  .story-image,
-  .story-body {
-    position: relative;
-    z-index: 0;
-  }
-
   &:hover .story-card::after,
   &:focus-within .story-card::after {
     border-color: var(--story-card-ring);

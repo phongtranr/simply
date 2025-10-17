@@ -12,10 +12,15 @@
     <div class="archive-entries max-w-3xl mx-auto" data-archive-entries>
 
         {{#foreach posts}}
-            <article class="archive-entry" data-archive-entry data-year="{{date format="YYYY"}}" data-month="{{date format="MM"}}" data-month-name="{{date format="MMMM"}}">
-                <div class="archive-entry-heading flex items-baseline justify-between gap-4 px-6 pt-6">
-                    <span class="archive-entry-month text-sm font-semibold uppercase tracking-[0.3em] text-gray-500">{{date format="MMMM"}}</span>
-                    <span class="archive-entry-year text-xs font-semibold uppercase tracking-[0.35em] text-gray-400">{{date format="YYYY"}}</span>
+        <article class="archive-post" data-year="{{date format="YYYY"}}" data-month="{{date format="MM"}}">
+            <header class="archive-heading flex items-center justify-between gap-6 px-6 pt-8 pb-4">
+                <span class="archive-year-label text-sm font-semibold uppercase tracking-[0.35em] text-slate-400">{{date format="YYYY"}}</span>
+                <span class="archive-month-label text-xs font-semibold uppercase tracking-[0.35em] text-slate-500">{{date format="MMMM"}}</span>
+            </header>
+            <a class="archive-link block text-title transition hover:text-dark" href="{{url}}">
+                <div class="archive-body border-t border-slate-200 px-6 py-5">
+                    <h2 class="archive-title text-2xl font-semibold leading-snug">{{title}}</h2>
+                    <time class="archive-posted mt-3 block text-sm font-medium uppercase tracking-[0.3em] text-slate-400" datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD MMM"}}</time>
                 </div>
                 <a class="archive-entry-link flex items-center justify-between gap-6 border-t border-gray-200 px-6 py-4 transition hover:bg-amber-300/60" href="{{url}}">
                     <span class="archive-entry-title text-lg font-semibold text-title">{{title}}</span>
@@ -29,148 +34,27 @@
 {{#contentFor "scripts"}}
 <script>
     (function () {
-        var root = document.querySelector('[data-archive-root]')
-        if (!root) {
+        var wrapper = document.querySelector('.feed-entry-wrap')
+        if (!wrapper) {
             return
         }
-
-        var entriesContainer = root.querySelector('[data-archive-entries]')
-        if (!entriesContainer) {
+        var articles = Array.prototype.slice.call(wrapper.querySelectorAll('.archive-post[data-year][data-month]'))
+        if (!articles.length) {
             return
         }
-
-        var entries = Array.prototype.slice.call(entriesContainer.querySelectorAll('[data-archive-entry]'))
-        if (!entries.length) {
-            return
-        }
-
-        var yearSuffix = root.getAttribute('data-year-label') || ''
-        var years = Object.create(null)
-
-        entries.forEach(function (entry) {
-            var year = entry.getAttribute('data-year')
-            var month = entry.getAttribute('data-month')
-            var monthName = entry.getAttribute('data-month-name')
+        var seenYears = []
+        articles.forEach(function (article) {
+            var year = article.getAttribute('data-year')
+            var month = article.getAttribute('data-month')
             if (!year || !month) {
                 return
             }
 
-            if (!years[year]) {
-                years[year] = {
-                    order: [],
-                    months: Object.create(null)
-                }
+            if (seenYears.indexOf(year) === -1) {
+                seenYears.push(year)
+                article.id = 'year-' + year
             }
-
-            var yearInfo = years[year]
-            if (!yearInfo.months[month]) {
-                yearInfo.months[month] = {
-                    name: monthName || month,
-                    entries: []
-                }
-                yearInfo.order.push(month)
-            }
-
-            yearInfo.months[month].entries.push(entry)
         })
-
-        var sortedYears = Object.keys(years)
-        if (!sortedYears.length) {
-            return
-        }
-
-        sortedYears.sort(function (a, b) {
-            return parseInt(b, 10) - parseInt(a, 10)
-        })
-
-        var fragment = document.createDocumentFragment()
-
-        sortedYears.forEach(function (year) {
-            var group = document.createElement('section')
-            group.className = 'archive-year-group'
-            group.id = 'year-' + year
-
-            var header = document.createElement('header')
-            header.className = 'archive-year-header'
-
-            var title = document.createElement('h2')
-            title.className = 'archive-year-title'
-
-            var number = document.createElement('span')
-            number.className = 'archive-year-number'
-            number.textContent = year
-            title.appendChild(number)
-
-            if (yearSuffix) {
-                var suffix = document.createElement('span')
-                suffix.className = 'archive-year-suffix'
-                suffix.textContent = yearSuffix
-                title.appendChild(suffix)
-            }
-
-            header.appendChild(title)
-            group.appendChild(header)
-
-            var monthWrapper = document.createElement('div')
-            monthWrapper.className = 'archive-months'
-
-            var sortedMonths = years[year].order.slice().sort(function (a, b) {
-                return parseInt(b, 10) - parseInt(a, 10)
-            })
-
-            sortedMonths.forEach(function (month) {
-                var monthInfo = years[year].months[month]
-                if (!monthInfo) {
-                    return
-                }
-
-                var monthSection = document.createElement('section')
-                monthSection.className = 'archive-month-group'
-
-                var monthHeading = document.createElement('h3')
-                monthHeading.className = 'archive-month-title'
-                monthHeading.textContent = monthInfo.name
-                monthSection.appendChild(monthHeading)
-
-                var list = document.createElement('ul')
-                list.className = 'archive-post-list'
-
-                monthInfo.entries.forEach(function (entry) {
-                    var link = entry.querySelector('.archive-entry-link')
-                    if (!link) {
-                        return
-                    }
-
-                    var item = document.createElement('li')
-                    item.className = 'archive-post-item'
-
-                    var clonedLink = link.cloneNode(true)
-                    clonedLink.className = 'archive-post-link'
-
-                    var titleNode = clonedLink.querySelector('.archive-entry-title')
-                    if (titleNode) {
-                        titleNode.className = 'archive-post-title'
-                    }
-
-                    var dateNode = clonedLink.querySelector('.archive-entry-date')
-                    if (dateNode) {
-                        dateNode.className = 'archive-post-date'
-                    }
-
-                    item.appendChild(clonedLink)
-                    list.appendChild(item)
-                })
-
-                monthSection.appendChild(list)
-                monthWrapper.appendChild(monthSection)
-            })
-
-            group.appendChild(monthWrapper)
-            fragment.appendChild(group)
-        })
-
-        entriesContainer.innerHTML = ''
-        entriesContainer.appendChild(fragment)
     })()
 </script>
 {{/contentFor}}
