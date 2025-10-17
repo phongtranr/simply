@@ -12,7 +12,7 @@
     <div class="feed-entry-wrap max-w-3xl mx-auto">
 
         {{#foreach posts}}
-        <article class="archive-post archive-date-{{date format="M"}}" data-year="{{date format="YYYY"}}" data-month="{{date format="MM"}}">
+        <article class="archive-post archive-date-{{date format="M"}}">
             <div class="archive-label text-primary px-6 mt-4 mb-2 text-2xl font-bold capitalize">{{date format="MMMM YYYY"}}</div>
             <a class="archive-link px-6 block text-title hover:text-dark hover:bg-amber-300 rounded" href="{{url}}">
                 <div class="border-t border-gray-200 py-4">
@@ -44,34 +44,4 @@
         display: none;
     }
 </style>
-{{/contentFor}}
-
-{{#contentFor "scripts"}}
-<script>
-    (function () {
-        var articles = document.querySelectorAll('.archive-post[data-year][data-month]')
-        if (!articles.length) {
-            return
-        }
-        var seenYears = []
-        var seenMonths = []
-        Array.prototype.slice.call(articles).forEach(function (article) {
-            var year = article.getAttribute('data-year')
-            var month = article.getAttribute('data-month')
-            if (seenYears.indexOf(year) === -1) {
-                article.id = 'year-' + year
-                seenYears.push(year)
-            }
-            var monthKey = year + '-' + month
-            var label = article.querySelector('.archive-label')
-            if (label) {
-                if (seenMonths.indexOf(monthKey) !== -1) {
-                    label.parentNode.removeChild(label)
-                } else {
-                    seenMonths.push(monthKey)
-                }
-            }
-        })
-    })()
-</script>
 {{/contentFor}}
