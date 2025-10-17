@@ -1243,6 +1243,195 @@ table tr:last-child td {
     font-size: 1.875rem;
   }
 }
+.archive-timeline {
+  border-top: 1px solid rgba(226, 232, 240, 1);
+}
+.archive-post {
+  border-bottom: 1px solid rgba(226, 232, 240, 1);
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.archive-post--year-start {
+  padding-top: 1.5rem;
+}
+.archive-heading {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 1rem;
+  gap: 1rem;
+  padding: 1.5rem 1.5rem 0;
+}
+.archive-heading-year {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(30, 41, 59, 1);
+}
+.archive-heading-month {
+  font-size: 0.75rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: rgba(100, 116, 139, 1);
+}
+.archive-heading--hidden {
+  visibility: hidden;
+  height: 0;
+  margin: 0;
+  padding: 0;
+}
+.archive-year--hidden {
+  visibility: hidden;
+}
+.archive-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+.archive-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  grid-gap: 1.5rem;
+  gap: 1.5rem;
+  padding: 1.25rem 1.5rem 1.75rem;
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.archive-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: rgba(15, 23, 42, 1);
+}
+.archive-date {
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(148, 163, 184, 1);
+  white-space: nowrap;
+}
+.archive-link:hover .archive-card, .archive-link.focus-visible .archive-card {
+  background-color: rgba(241, 245, 249, 1);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+  transform: translateY(-2px);
+}
+.archive-link:hover .archive-card, .archive-link:focus-visible .archive-card {
+  background-color: rgba(241, 245, 249, 1);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+  transform: translateY(-2px);
+}
+.archive-link.focus-visible {
+  outline: none;
+}
+.archive-link:focus-visible {
+  outline: none;
+}
+@media (min-width: 768px) {
+  .archive-post {
+    grid-template-columns: 220px 1fr;
+  }
+
+  .archive-heading {
+    grid-template-columns: 220px 1fr;
+    align-items: end;
+    padding: 2rem 2.5rem 0;
+  }
+
+  .archive-card {
+    padding: 1.75rem 2.5rem 2.25rem;
+    border-top: 1px solid rgba(226, 232, 240, 1);
+  }
+
+  .archive-heading-month {
+    text-align: right;
+  }
+}
+@media (max-width: 767px) {
+  .archive-heading-year {
+    font-size: 1.5rem;
+    letter-spacing: 0.25em;
+  }
+
+  .archive-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .archive-date {
+    letter-spacing: 0.3em;
+  }
+}
+.home-featured-collection {
+  background-color: rgba(255, 255, 255, 1);
+}
+.featured-collection-grid {
+  align-items: stretch;
+}
+.featured-collection-card {
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+}
+.featured-collection-card:hover, .featured-collection-card[focus-within] {
+  box-shadow: 0 24px 55px rgba(15, 23, 42, 0.12);
+}
+.featured-collection-card:hover, .featured-collection-card:focus-within {
+  box-shadow: 0 24px 55px rgba(15, 23, 42, 0.12);
+}
+.featured-collection-media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+}
+.featured-collection-media img {
+  transition: transform 0.3s ease;
+}
+.featured-collection-media--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(30, 64, 175, 0.12), rgba(30, 64, 175, 0.28));
+  color: rgba(30, 64, 175, 1);
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+}
+.featured-collection-media-label {
+  font-size: 0.75rem;
+}
+.featured-collection-title a {
+  color: inherit;
+  text-decoration: none;
+}
+.featured-collection-tag {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  border: 1px solid rgba(191, 219, 254, 1);
+  background-color: rgba(239, 246, 255, 1);
+  color: rgba(30, 64, 175, 1);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.75rem;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.featured-collection-tag:hover, .featured-collection-tag.focus-visible {
+  border-color: rgba(30, 64, 175, 1);
+  background-color: rgba(30, 64, 175, 1);
+  color: rgba(255, 255, 255, 1);
+}
+.featured-collection-tag:hover, .featured-collection-tag:focus-visible {
+  border-color: rgba(30, 64, 175, 1);
+  background-color: rgba(30, 64, 175, 1);
+  color: rgba(255, 255, 255, 1);
+}
+.featured-collection-tag.focus-visible {
+  outline: none;
+}
+.featured-collection-tag:focus-visible {
+  outline: none;
+}
 :not(pre) > code {
   border-radius: 3px;
   white-space: normal;
@@ -2077,6 +2266,9 @@ except for when immediately preceeded by a heading */
 .max-w-5xl {
   max-width: 64rem;
 }
+.max-w-6xl {
+  max-width: 72rem;
+}
 .max-w-extreme {
   max-width: 81.25rem;
 }
@@ -2160,9 +2352,6 @@ except for when immediately preceeded by a heading */
 }
 .items-center {
   align-items: center;
-}
-.items-baseline {
-  align-items: baseline;
 }
 .items-stretch {
   align-items: stretch;
@@ -2524,9 +2713,6 @@ except for when immediately preceeded by a heading */
 .pb-16 {
   padding-bottom: 4rem;
 }
-.pb-2 {
-  padding-bottom: 0.5rem;
-}
 .pb-5 {
   padding-bottom: 1.25rem;
 }
@@ -2583,9 +2769,6 @@ except for when immediately preceeded by a heading */
 }
 .pt-5 {
   padding-top: 1.25rem;
-}
-.pt-6 {
-  padding-top: 1.5rem;
 }
 .pt-8 {
   padding-top: 2rem;
@@ -2952,11 +3135,21 @@ except for when immediately preceeded by a heading */
 /* Variants
 /* ---------------------------------------------------------- */
 /* @import "tailwindcss/variants"; */
+.focus-within\:-translate-y-1:focus-within {
+  --tw-translate-y: -0.25rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.focus-within\:shadow-card-primary:focus-within {
+  --tw-shadow: inset 0 0 0 0.1rem var(--color-primary), 0 10px 20px rgb(58 3 45 / 4%), 0 2px 6px rgb(58 3 45 / 4%), 0 0 1px rgb(58 3 45 / 4%);
+  --tw-shadow-colored: inset 0 0 0 0.1rem var(--tw-shadow-color), 0 10px 20px var(--tw-shadow-color), 0 2px 6px var(--tw-shadow-color), 0 0 1px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.hover\:-translate-y-1:hover {
+  --tw-translate-y: -0.25rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
 .hover\:border-primary:hover {
   border-color: var(--ghost-accent-color);
-}
-.hover\:bg-amber-300\/60:hover {
-  background-color: rgb(252 211 77 / 0.6);
 }
 .hover\:bg-dark:hover {
   --tw-bg-opacity: 1;

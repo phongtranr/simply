@@ -33,6 +33,8 @@
 
 @import "./components/dropdown.css";
 @import "./components/story.css";
+@import "./components/archive.css";
+@import "./components/featured.css";
 @import "./components/code.css";
 /* @import "./components/modal.css"; */
 

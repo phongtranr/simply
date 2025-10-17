@@ -6,7 +6,7 @@
 
 {{#is "paged"}}
 {{else}}
-    {{> "home/archive-year-strip"}}
+    {{> "home/featured-collection"}}
 {{/is}}
 
 {{!-- Feed Stories --}}
@@ -26,3 +26,8 @@
     {{!-- Pagination - partials/pagination.hbs --}}
     {{pagination}}
 </div>
+
+{{#is "paged"}}
+{{else}}
+    {{> "home/archive-year-strip"}}
+{{/is}}

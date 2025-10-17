@@ -2,8 +2,8 @@
 {{#if @custom.home_archive_strip}}
     {{#get "posts" limit="100" filter="tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]" order="published_at desc" as |archive_posts|}}
         {{#if archive_posts}}
-            <section class="home-archive-strip border-y border-gray-200 bg-rose-50/40">
-                <div class="container mx-auto px-4 py-12">
+            <section class="home-archive-strip border-t border-gray-200 bg-white">
+                <div class="container mx-auto px-4 py-16">
                     <div class="max-w-4xl mx-auto flex flex-col items-center gap-8 text-center">
                         <h2 class="text-xs font-semibold uppercase tracking-[0.35em] text-gray-500">{{t "From the archive"}}</h2>
                         <nav class="archive-year-links w-full" aria-label="Archive years">
@@ -51,6 +51,51 @@
                             {{#if archive_posts_page_5}}
                                 <div hidden data-archive-year-probes data-page="5">
                                     {{#foreach archive_posts_page_5}}
+                                        <span data-year-probe="{{date published_at format="YYYY"}}"></span>
+                                    {{/foreach}}
+                                </div>
+                            {{/if}}
+                        {{/get}}
+                        {{#get "posts" limit="100" page="6" filter="tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]" order="published_at desc" as |archive_posts_page_6|}}
+                            {{#if archive_posts_page_6}}
+                                <div hidden data-archive-year-probes data-page="6">
+                                    {{#foreach archive_posts_page_6}}
+                                        <span data-year-probe="{{date published_at format="YYYY"}}"></span>
+                                    {{/foreach}}
+                                </div>
+                            {{/if}}
+                        {{/get}}
+                        {{#get "posts" limit="100" page="7" filter="tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]" order="published_at desc" as |archive_posts_page_7|}}
+                            {{#if archive_posts_page_7}}
+                                <div hidden data-archive-year-probes data-page="7">
+                                    {{#foreach archive_posts_page_7}}
+                                        <span data-year-probe="{{date published_at format="YYYY"}}"></span>
+                                    {{/foreach}}
+                                </div>
+                            {{/if}}
+                        {{/get}}
+                        {{#get "posts" limit="100" page="8" filter="tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]" order="published_at desc" as |archive_posts_page_8|}}
+                            {{#if archive_posts_page_8}}
+                                <div hidden data-archive-year-probes data-page="8">
+                                    {{#foreach archive_posts_page_8}}
+                                        <span data-year-probe="{{date published_at format="YYYY"}}"></span>
+                                    {{/foreach}}
+                                </div>
+                            {{/if}}
+                        {{/get}}
+                        {{#get "posts" limit="100" page="9" filter="tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]" order="published_at desc" as |archive_posts_page_9|}}
+                            {{#if archive_posts_page_9}}
+                                <div hidden data-archive-year-probes data-page="9">
+                                    {{#foreach archive_posts_page_9}}
+                                        <span data-year-probe="{{date published_at format="YYYY"}}"></span>
+                                    {{/foreach}}
+                                </div>
+                            {{/if}}
+                        {{/get}}
+                        {{#get "posts" limit="100" page="10" filter="tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]" order="published_at desc" as |archive_posts_page_10|}}
+                            {{#if archive_posts_page_10}}
+                                <div hidden data-archive-year-probes data-page="10">
+                                    {{#foreach archive_posts_page_10}}
                                         <span data-year-probe="{{date published_at format="YYYY"}}"></span>
                                     {{/foreach}}
                                 </div>
