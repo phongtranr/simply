@@ -3,9 +3,10 @@
     position: relative;
   }
 
-  /* &-publisher {
+  &-publisher {
     color: var(--ghost-accent-color);
-  } */
+    font-weight: 500;
+  }
 
   &-content {
     @apply flex flex-col grow order-1 p-5;
