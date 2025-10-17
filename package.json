@@ -38,7 +38,7 @@
     "email": "hello@godofredo.ninja"
   },
   "config": {
-    "posts_per_page": 18,
+    "posts_per_page": 4,
     "image_sizes": {
       "xxs": {
         "width": 30
