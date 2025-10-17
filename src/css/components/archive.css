@@ -1,0 +1,126 @@
+.archive-timeline {
+  border-top: 1px solid rgba(226, 232, 240, 1);
+}
+
+.archive-post {
+  border-bottom: 1px solid rgba(226, 232, 240, 1);
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.archive-post--year-start {
+  padding-top: 1.5rem;
+}
+
+.archive-heading {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding: 1.5rem 1.5rem 0;
+}
+
+.archive-heading-year {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(30, 41, 59, 1);
+}
+
+.archive-heading-month {
+  font-size: 0.75rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: rgba(100, 116, 139, 1);
+}
+
+.archive-heading--hidden {
+  visibility: hidden;
+  height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.archive-year--hidden {
+  visibility: hidden;
+}
+
+.archive-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.archive-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.25rem 1.5rem 1.75rem;
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.archive-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: rgba(15, 23, 42, 1);
+}
+
+.archive-date {
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(148, 163, 184, 1);
+  white-space: nowrap;
+}
+
+.archive-link:hover .archive-card,
+.archive-link:focus-visible .archive-card {
+  background-color: rgba(241, 245, 249, 1);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+  transform: translateY(-2px);
+}
+
+.archive-link:focus-visible {
+  outline: none;
+}
+
+@media (min-width: 768px) {
+  .archive-post {
+    grid-template-columns: 220px 1fr;
+  }
+
+  .archive-heading {
+    grid-template-columns: 220px 1fr;
+    align-items: end;
+    padding: 2rem 2.5rem 0;
+  }
+
+  .archive-card {
+    padding: 1.75rem 2.5rem 2.25rem;
+    border-top: 1px solid rgba(226, 232, 240, 1);
+  }
+
+  .archive-heading-month {
+    text-align: right;
+  }
+}
+
+@media (max-width: 767px) {
+  .archive-heading-year {
+    font-size: 1.5rem;
+    letter-spacing: 0.25em;
+  }
+
+  .archive-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .archive-date {
+    letter-spacing: 0.3em;
+  }
+}
