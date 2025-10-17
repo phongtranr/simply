@@ -1,0 +1,26 @@
+.archive-post {
+  position: relative;
+}
+
+.archive-heading {
+  background: rgba(248, 250, 252, 1);
+  border-top: 1px solid rgba(226, 232, 240, 1);
+}
+
+.archive-body {
+  transition: background-color 0.25s ease;
+}
+
+.archive-post + .archive-post .archive-body {
+  border-top: 1px solid rgba(226, 232, 240, 1);
+}
+
+.archive-link:hover .archive-body,
+.archive-link:focus-visible .archive-body {
+  background: rgba(248, 250, 252, 1);
+}
+
+.archive-link:focus-visible {
+  outline: 2px solid rgba(30, 64, 175, 1);
+  outline-offset: 4px;
+}

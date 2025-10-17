@@ -1,0 +1,34 @@
+.home-featured-grid {
+  position: relative;
+}
+
+.home-featured-grid__list {
+  align-items: stretch;
+}
+
+.home-featured-grid__card {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.home-featured-grid__link:focus-visible {
+  outline: 2px solid rgba(30, 64, 175, 1);
+  outline-offset: 4px;
+}
+
+.home-featured-grid__media img {
+  transition: transform 0.35s ease;
+}
+
+.home-featured-grid__link:hover .home-featured-grid__media img,
+.home-featured-grid__link:focus-visible .home-featured-grid__media img {
+  transform: scale(1.05);
+}
+
+@media (max-width: 639px) {
+  .home-featured-grid__list {
+    grid-template-columns: 1fr;
+  }
+}

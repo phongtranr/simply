@@ -4,3 +4,8 @@
 {{> "home/publication-cover"}}
 
 {{> "loop"}}
+
+{{#is "paged"}}
+{{else}}
+    {{> "home/archive-year-strip"}}
+{{/is}}

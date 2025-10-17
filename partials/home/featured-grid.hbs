@@ -1,0 +1,42 @@
+{{#get "posts" limit="4" filter="featured:true" include="tags" as |featured_posts|}}
+    {{#if featured_posts}}
+        <section class="home-featured-grid border-b border-slate-200 bg-white">
+            <div class="container mx-auto px-4 py-12">
+                <div class="home-featured-grid__header mb-8 flex items-center justify-start">
+                    <h2 class="text-sm font-semibold uppercase tracking-[0.35em] text-slate-500">{{t "Featured"}}</h2>
+                </div>
+                <div class="home-featured-grid__list grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+                    {{#foreach featured_posts}}
+                        <article class="home-featured-grid__card overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition hover:shadow-lg focus-within:shadow-lg">
+                            <a href="{{url}}" class="home-featured-grid__link flex h-full flex-col" aria-label="{{title}}">
+                                {{#if feature_image}}
+                                    <figure class="home-featured-grid__media relative h-44 w-full overflow-hidden">
+                                        <img class="inset-image block h-full w-full object-cover"
+                                            srcset="{{img_url feature_image size="s"}} 300w, {{img_url feature_image size="m"}} 600w, {{img_url feature_image size="l"}} 1000w"
+                                            src="{{img_url feature_image size="m"}}"
+                                            sizes="(min-width: 1280px) 300px, (min-width: 640px) 50vw, 100vw"
+                                            alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}" />
+                                    </figure>
+                                {{/if}}
+                                <div class="home-featured-grid__body flex grow flex-col p-5">
+                                    <h3 class="home-featured-grid__title text-xl font-semibold leading-tight text-title">
+                                        {{title}}
+                                    </h3>
+                                    {{#if tags}}
+                                        <ul class="home-featured-grid__tags mt-4 flex flex-wrap gap-2">
+                                            {{#foreach tags limit="3"}}
+                                                <li>
+                                                    <span class="home-featured-grid__tag inline-flex items-center rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">{{name}}</span>
+                                                </li>
+                                            {{/foreach}}
+                                        </ul>
+                                    {{/if}}
+                                </div>
+                            </a>
+                        </article>
+                    {{/foreach}}
+                </div>
+            </div>
+        </section>
+    {{/if}}
+{{/get}}
