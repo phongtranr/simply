@@ -8,7 +8,7 @@
 4. [Sidebar](#sidebar) `godo-template-sidebar.hbs`
 5. [Grid](#grid) `godo-template-grid.hbs`
 6. [Personal](#personal) `godo-template-personal.hbs`
-7. [Archive Page](#archive-page) `godo-template-archive.hbs`
+7. [Archive Page](#archive-page) `godo-archive.hbs`
 8. [Featured with Slider](#featured-with-slider) `godo-template-featured-slider.hbs`
 9. [Medium with Sidebar](#medium-with-sidebar) `godo-template-medium-sidebar.hbs`
 10. [Photographer](#photographer) `godo-template-photographer.hbs`
@@ -23,6 +23,13 @@
 ![route](https://user-images.githubusercontent.com/10253167/104209353-9b2b3c80-53ff-11eb-8028-42254c65839c.jpg)
 
 > The filter option is optional. If you have activated the portfolio and documentation. I think if it is necessary to add the filter.
+
+## Homepage archive strip
+
+Simply now ships with an optional homepage archive strip that lists every publication year and links straight to the archive template anchors. The strip automatically appears on the first page of each homepage layout and mirrors whatoliviadid.com’s quick year navigation.
+
+- To hide it, open **Settings → Design** in Ghost Admin and toggle off **Home archive strip** under the *Homepage* section.
+- The links point to `https://<your-domain>/archive/#year-YYYY`, so make sure the archive route is enabled in `routes.yaml`.
 
 ## Default
 
@@ -262,6 +269,8 @@ Simply has a beautiful template for listing articles in a single file.
 ![Ghost - Simply archive page](https://user-images.githubusercontent.com/10253167/105381375-ee11aa80-5bdc-11eb-9ee8-c94de192934c.jpg)
 
 If you want to change the title that says. **The full archive**, just edit the file `godo-archive.hbs` inside the theme.
+
+> Tip: Each year block now exposes an anchor such as `#year-2024`, which keeps the homepage archive strip in sync with the archive template.
 
 👉 **Archive  Route**
 
