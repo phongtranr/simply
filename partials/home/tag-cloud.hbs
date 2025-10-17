@@ -1,0 +1,25 @@
+{{!-- Homepage tag cloud showcasing popular public tags --}}
+{{#get "tags" limit="12" include="count.posts" filter="visibility:public" order="count.posts desc" as |tag_cloud|}}
+    {{#if tag_cloud}}
+        <section class="home-tag-cloud border-t border-gray-200 bg-blank">
+            <div class="container mx-auto px-4 py-16">
+                <div class="tag-cloud-inner mx-auto max-w-5xl">
+                    <div class="tag-cloud-heading">
+                        <h2 class="tag-cloud-title">{{t "Tag Cloud"}}</h2>
+                        <span class="tag-cloud-divider" aria-hidden="true"></span>
+                    </div>
+                    <ul class="tag-cloud-list" aria-label="{{t 'Popular tags'}}">
+                        {{#foreach tag_cloud}}
+                            <li class="tag-cloud-item">
+                                <a class="tag-cloud-link" href="{{url}}">
+                                    <span aria-hidden="true" class="tag-cloud-hash">#</span>
+                                    <span>{{name}}</span>
+                                </a>
+                            </li>
+                        {{/foreach}}
+                    </ul>
+                </div>
+            </div>
+        </section>
+    {{/if}}
+{{/get}}
