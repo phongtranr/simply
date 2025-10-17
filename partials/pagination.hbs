@@ -53,10 +53,16 @@
 
 {{#match @custom.pagination "Infinite Scroll"}}
 
-{{#if next}}
-<nav class="pagination hidden"><a class="older-posts" href="{{page_url next}}"></a></nav>
-
-<button class="button is-primary load-more-btn h-12 w-56 mt-20 hidden mx-auto">{{t "Load More"}}</button>
-{{/if}}
+<nav class="pagination hidden">
+    {{#if next}}
+        <a class="older-posts" href="{{page_url next}}"></a>
+    {{/if}}
+</nav>
 
 {{/match}}
+
+<div class="feed-load-more flex justify-center mt-16">
+    <button class="button is-primary load-more-btn hidden h-12 w-56" type="button">
+        <span class="load-more-label">{{t "Load More"}}</span>
+    </button>
+</div>
