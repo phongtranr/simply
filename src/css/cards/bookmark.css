@@ -3,9 +3,9 @@
     position: relative;
   }
 
-  /* &-publisher {
-    color: var(--ghost-accent-color);
-  } */
+  &-publisher {
+    @apply text-xs font-medium uppercase tracking-wide text-gray-500;
+  }
 
   &-content {
     @apply flex flex-col grow order-1 p-5;
