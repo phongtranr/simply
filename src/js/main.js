@@ -153,6 +153,202 @@ const simplySetup = () => {
 
   darkMode()
 
+  /* Load more posts
+  /* ---------------------------------------------------------- */
+  const setupLoadMoreFeeds = () => {
+    const wrappers = docSelectorAll('[data-load-more]')
+    if (!wrappers.length) return
+
+    const resolveUrl = url => {
+      if (!url) return null
+
+      try {
+        return new URL(url, window.location.href).href
+      } catch (error) {
+        return null
+      }
+    }
+
+    const updateHeadNextLink = href => {
+      const existing = document.querySelector('head link[rel="next"]')
+
+      if (href) {
+        if (existing) {
+          existing.setAttribute('href', href)
+        } else {
+          const nextLink = document.createElement('link')
+          nextLink.rel = 'next'
+          nextLink.href = href
+          document.head.appendChild(nextLink)
+        }
+      } else if (existing) {
+        existing.parentNode.removeChild(existing)
+      }
+    }
+
+    const hideArticle = article => {
+      article.classList.add('hidden')
+      article.setAttribute('aria-hidden', 'true')
+    }
+
+    const showArticle = article => {
+      article.classList.remove('hidden')
+      article.removeAttribute('aria-hidden')
+    }
+
+    wrappers.forEach(wrapper => {
+      const feed = wrapper.querySelector('.js-feed-entry')
+      const button = wrapper.querySelector('.js-load-more')
+      const paginationNav = wrapper.querySelector('.pagination')
+
+      if (!feed || !button) return
+
+      const batchSize = 4
+      let nextPageUrl = null
+      let isLoading = false
+
+      const setInitialNextUrl = () => {
+        const headNext = document.querySelector('link[rel="next"]')
+        if (headNext) {
+          nextPageUrl = resolveUrl(headNext.getAttribute('href'))
+          return
+        }
+
+        if (!paginationNav) return
+
+        const olderPostsLink = paginationNav.querySelector('.older-posts')
+        nextPageUrl = resolveUrl(olderPostsLink ? olderPostsLink.getAttribute('href') : null)
+      }
+
+      const hideExtraPosts = () => {
+        const articles = docSelectorAll('.js-story', feed)
+
+        articles.forEach((article, index) => {
+          if (index < batchSize) {
+            showArticle(article)
+          } else {
+            hideArticle(article)
+          }
+        })
+      }
+
+      const revealHiddenArticles = count => {
+        const hiddenArticles = feed.querySelectorAll('.js-story.hidden')
+        let revealed = 0
+
+        hiddenArticles.forEach(article => {
+          if (revealed >= count) return
+
+          showArticle(article)
+          revealed += 1
+        })
+
+        return revealed
+      }
+
+      const fetchNextPage = async () => {
+        if (!nextPageUrl) return []
+
+        try {
+          const response = await window.fetch(nextPageUrl, { credentials: 'same-origin' })
+          if (!response.ok) throw new Error(response.statusText)
+
+          const html = await response.text()
+          const parser = new window.DOMParser()
+          const doc = parser.parseFromString(html, 'text/html')
+          const newFeed = doc.querySelector('.js-feed-entry')
+
+          if (!newFeed) {
+            nextPageUrl = null
+            updateHeadNextLink(null)
+            return []
+          }
+
+          const fragment = document.createDocumentFragment()
+          const articles = newFeed.querySelectorAll('.js-story')
+
+          articles.forEach(article => {
+            hideArticle(article)
+            fragment.appendChild(article)
+          })
+
+          feed.appendChild(fragment)
+
+          const nextLink = doc.querySelector('link[rel="next"]')
+          const olderPosts = doc.querySelector('.pagination .older-posts')
+          const newNextUrl = resolveUrl(nextLink ? nextLink.getAttribute('href') : olderPosts ? olderPosts.getAttribute('href') : null)
+
+          nextPageUrl = newNextUrl
+          updateHeadNextLink(newNextUrl)
+
+          return articles
+        } catch (error) {
+          nextPageUrl = null
+          updateHeadNextLink(null)
+          return []
+        }
+      }
+
+      const syncPaginationVisibility = hasMore => {
+        if (!paginationNav) return
+
+        if (hasMore) {
+          paginationNav.classList.add('hidden')
+        } else {
+          paginationNav.classList.remove('hidden')
+        }
+      }
+
+      const updateButtonVisibility = () => {
+        const hiddenArticle = feed.querySelector('.js-story.hidden')
+        const hasMore = Boolean(hiddenArticle || nextPageUrl)
+
+        if (hasMore) {
+          button.classList.remove('hidden')
+        } else {
+          button.classList.add('hidden')
+        }
+
+        syncPaginationVisibility(hasMore)
+      }
+
+      const loadMore = async () => {
+        if (isLoading) return
+
+        isLoading = true
+        button.disabled = true
+        button.setAttribute('aria-busy', 'true')
+
+        let revealed = revealHiddenArticles(batchSize)
+
+        while (revealed < batchSize && nextPageUrl) {
+          const appendedArticles = await fetchNextPage()
+          if (!appendedArticles.length) break
+
+          revealed += revealHiddenArticles(batchSize - revealed)
+        }
+
+        updateButtonVisibility()
+
+        button.disabled = false
+        button.removeAttribute('aria-busy')
+        isLoading = false
+      }
+
+      const init = () => {
+        setInitialNextUrl()
+        hideExtraPosts()
+        updateButtonVisibility()
+
+        button.addEventListener('click', loadMore)
+      }
+
+      init()
+    })
+  }
+
+  setupLoadMoreFeeds()
+
   /* DropDown Toggle
   /* ---------------------------------------------------------- */
   const dropDownMenuToggle = () => {

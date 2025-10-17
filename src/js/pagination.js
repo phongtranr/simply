@@ -10,6 +10,7 @@ import InfiniteScroll from 'infinite-scroll'
   if (!$feedElement) return
 
   const $viewMoreButton = document.querySelector('.load-more-btn')
+  if (!$viewMoreButton) return
   // const $iconLoader = $viewMoreButton.querySelector('.icon')
   // const $label = $viewMoreButton.querySelector('.label')
 
