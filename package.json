@@ -136,6 +136,11 @@
         "type": "image",
         "group": "homepage"
       },
+      "home_archive_strip": {
+        "type": "boolean",
+        "default": true,
+        "group": "homepage"
+      },
       "post_font": {
         "type": "select",
         "options": [
