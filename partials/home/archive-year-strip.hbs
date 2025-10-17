@@ -1,0 +1,144 @@
+{{!-- Homepage archive navigation linking to yearly sections on the archive channel --}}
+{{#if @custom.home_archive_strip}}
+    {{#get "posts" limit="50" filter="tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]" order="published_at desc" as |archive_posts|}}
+        {{#if archive_posts}}
+            <section class="home-archive-strip border-t border-gray-200 bg-white">
+                <div class="container mx-auto px-4 py-16">
+                    <div class="max-w-5xl mx-auto flex flex-col items-center gap-10 text-center">
+                        <h2 class="text-xs font-semibold uppercase tracking-[0.5em] text-gray-400">{{t "From the archive"}}</h2>
+                        <nav class="archive-year-links w-full" aria-label="Archive years">
+                            <ul class="archive-year-grid mx-auto grid w-full grid-cols-1 gap-4 sm:max-w-3xl sm:grid-cols-2 lg:max-w-none lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+                                {{#foreach archive_posts}}
+                                    <li>
+                                        <a class="flex h-20 w-full items-center justify-center rounded-md bg-dark-blue-500 px-6 text-lg font-semibold uppercase tracking-[0.45em] text-white transition hover:bg-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dark" href="/archive/#year-{{date published_at format="YYYY"}}" data-year="{{date published_at format="YYYY"}}">{{date published_at format="YYYY"}}</a>
+                                    </li>
+                                {{/foreach}}
+                            </ul>
+                            <div hidden data-archive-year-probes data-page="1">
+                                {{#foreach archive_posts}}
+                                    <span data-year-probe="{{date published_at format="YYYY"}}"></span>
+                                {{/foreach}}
+                            </div>
+                        </nav>
+                        {{#get "posts" limit="50" page="2" filter="tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]" order="published_at desc" as |archive_posts_page_2|}}
+                            {{#if archive_posts_page_2}}
+                                <div hidden data-archive-year-probes data-page="2">
+                                    {{#foreach archive_posts_page_2}}
+                                        <span data-year-probe="{{date published_at format="YYYY"}}"></span>
+                                    {{/foreach}}
+                                </div>
+                            {{/if}}
+                        {{/get}}
+                        {{#get "posts" limit="50" page="3" filter="tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]" order="published_at desc" as |archive_posts_page_3|}}
+                            {{#if archive_posts_page_3}}
+                                <div hidden data-archive-year-probes data-page="3">
+                                    {{#foreach archive_posts_page_3}}
+                                        <span data-year-probe="{{date published_at format="YYYY"}}"></span>
+                                    {{/foreach}}
+                                </div>
+                            {{/if}}
+                        {{/get}}
+                        {{#get "posts" limit="50" page="4" filter="tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]" order="published_at desc" as |archive_posts_page_4|}}
+                            {{#if archive_posts_page_4}}
+                                <div hidden data-archive-year-probes data-page="4">
+                                    {{#foreach archive_posts_page_4}}
+                                        <span data-year-probe="{{date published_at format="YYYY"}}"></span>
+                                    {{/foreach}}
+                                </div>
+                            {{/if}}
+                        {{/get}}
+                        {{#get "posts" limit="50" page="5" filter="tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]" order="published_at desc" as |archive_posts_page_5|}}
+                            {{#if archive_posts_page_5}}
+                                <div hidden data-archive-year-probes data-page="5">
+                                    {{#foreach archive_posts_page_5}}
+                                        <span data-year-probe="{{date published_at format="YYYY"}}"></span>
+                                    {{/foreach}}
+                                </div>
+                            {{/if}}
+                        {{/get}}
+                    </div>
+                </div>
+            </section>
+            <script>
+                (function () {
+                    var script = document.currentScript
+                    if (!script) {
+                        return
+                    }
+                    var container = script.previousElementSibling
+                    if (!container) {
+                        return
+                    }
+                    var nav = container.querySelector('nav.archive-year-links')
+                    if (!nav) {
+                        return
+                    }
+                    var list = nav.querySelector('ul.archive-year-grid')
+                    if (!list) {
+                        return
+                    }
+
+                    var yearMap = Object.create(null)
+                    Array.prototype.slice.call(list.querySelectorAll('li')).forEach(function (item) {
+                        var link = item.querySelector('a[data-year]')
+                        if (!link) {
+                            item.remove()
+                            return
+                        }
+                        var year = link.getAttribute('data-year')
+                        if (!year) {
+                            item.remove()
+                            return
+                        }
+                        if (yearMap[year]) {
+                            item.remove()
+                            return
+                        }
+                        yearMap[year] = item
+                    })
+
+                    var probeContainers = container.querySelectorAll('[data-archive-year-probes]')
+                    Array.prototype.slice.call(probeContainers).forEach(function (probeContainer) {
+                        Array.prototype.slice.call(probeContainer.querySelectorAll('[data-year-probe]')).forEach(function (probe) {
+                            var probeYear = probe.getAttribute('data-year-probe')
+                            if (probeYear && !yearMap[probeYear]) {
+                                yearMap[probeYear] = null
+                            }
+                        })
+                        probeContainer.remove()
+                    })
+
+                    var uniqueYears = Object.keys(yearMap).filter(function (value) {
+                        return value
+                    })
+                    if (!uniqueYears.length) {
+                        return
+                    }
+
+                    uniqueYears.sort(function (a, b) {
+                        return parseInt(b, 10) - parseInt(a, 10)
+                    })
+
+                    var fragment = document.createDocumentFragment()
+                    uniqueYears.forEach(function (yearValue) {
+                        var existing = yearMap[yearValue]
+                        if (!existing) {
+                            var li = document.createElement('li')
+                            var link = document.createElement('a')
+                            link.className = 'flex h-20 w-full items-center justify-center rounded-md bg-dark-blue-500 px-6 text-lg font-semibold uppercase tracking-[0.45em] text-white transition hover:bg-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dark'
+                            link.setAttribute('href', '/archive/#year-' + yearValue)
+                            link.setAttribute('data-year', yearValue)
+                            link.textContent = yearValue
+                            li.appendChild(link)
+                            existing = li
+                        }
+                        fragment.appendChild(existing)
+                    })
+
+                    list.innerHTML = ''
+                    list.appendChild(fragment)
+                })()
+            </script>
+        {{/if}}
+    {{/get}}
+{{/if}}
