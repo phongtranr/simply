@@ -1,16 +1,16 @@
 {{!-- Homepage archive navigation linking to yearly sections on the archive channel --}}
 {{#if @custom.home_archive_strip}}
-    {{#get "posts" limit="100" filter="tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]" order="published_at desc" as |archive_posts|}}
+    {{#get "posts" limit="50" filter="tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]" order="published_at desc" as |archive_posts|}}
         {{#if archive_posts}}
-            <section class="home-archive-strip border-t border-gray-200">
+            <section class="home-archive-strip border-t border-gray-200 bg-white">
                 <div class="container mx-auto px-4 py-16">
-                    <div class="max-w-4xl mx-auto flex flex-col items-center gap-10 text-center">
-                        <h2 class="archive-strip-heading text-xs font-semibold uppercase tracking-[0.4em] text-gray-500">{{t "From the archive"}}</h2>
+                    <div class="max-w-5xl mx-auto flex flex-col items-center gap-10 text-center">
+                        <h2 class="text-xs font-semibold uppercase tracking-[0.5em] text-gray-400">{{t "From the archive"}}</h2>
                         <nav class="archive-year-links w-full" aria-label="Archive years">
-                            <ul class="archive-year-grid mx-auto grid w-full grid-cols-1 gap-4 sm:max-w-3xl sm:grid-cols-2 lg:max-w-none lg:grid-cols-3 xl:grid-cols-4">
+                            <ul class="archive-year-grid mx-auto grid w-full grid-cols-1 gap-4 sm:max-w-3xl sm:grid-cols-2 lg:max-w-none lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
                                 {{#foreach archive_posts}}
                                     <li>
-                                        <a class="archive-year-tile" href="/archive/#year-{{date published_at format="YYYY"}}" data-year="{{date published_at format="YYYY"}}">{{date published_at format="YYYY"}}</a>
+                                        <a class="flex h-20 w-full items-center justify-center rounded-md bg-dark-blue-500 px-6 text-lg font-semibold uppercase tracking-[0.45em] text-white transition hover:bg-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dark" href="/archive/#year-{{date published_at format="YYYY"}}" data-year="{{date published_at format="YYYY"}}">{{date published_at format="YYYY"}}</a>
                                     </li>
                                 {{/foreach}}
                             </ul>
@@ -20,7 +20,7 @@
                                 {{/foreach}}
                             </div>
                         </nav>
-                        {{#get "posts" limit="100" page="2" filter="tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]" order="published_at desc" as |archive_posts_page_2|}}
+                        {{#get "posts" limit="50" page="2" filter="tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]" order="published_at desc" as |archive_posts_page_2|}}
                             {{#if archive_posts_page_2}}
                                 <div hidden data-archive-year-probes data-page="2">
                                     {{#foreach archive_posts_page_2}}
@@ -29,7 +29,7 @@
                                 </div>
                             {{/if}}
                         {{/get}}
-                        {{#get "posts" limit="100" page="3" filter="tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]" order="published_at desc" as |archive_posts_page_3|}}
+                        {{#get "posts" limit="50" page="3" filter="tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]" order="published_at desc" as |archive_posts_page_3|}}
                             {{#if archive_posts_page_3}}
                                 <div hidden data-archive-year-probes data-page="3">
                                     {{#foreach archive_posts_page_3}}
@@ -38,7 +38,7 @@
                                 </div>
                             {{/if}}
                         {{/get}}
-                        {{#get "posts" limit="100" page="4" filter="tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]" order="published_at desc" as |archive_posts_page_4|}}
+                        {{#get "posts" limit="50" page="4" filter="tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]" order="published_at desc" as |archive_posts_page_4|}}
                             {{#if archive_posts_page_4}}
                                 <div hidden data-archive-year-probes data-page="4">
                                     {{#foreach archive_posts_page_4}}
@@ -47,7 +47,7 @@
                                 </div>
                             {{/if}}
                         {{/get}}
-                        {{#get "posts" limit="100" page="5" filter="tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]" order="published_at desc" as |archive_posts_page_5|}}
+                        {{#get "posts" limit="50" page="5" filter="tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]" order="published_at desc" as |archive_posts_page_5|}}
                             {{#if archive_posts_page_5}}
                                 <div hidden data-archive-year-probes data-page="5">
                                     {{#foreach archive_posts_page_5}}
@@ -125,7 +125,7 @@
                         if (!existing) {
                             var li = document.createElement('li')
                             var link = document.createElement('a')
-                            link.className = 'archive-year-tile'
+                            link.className = 'flex h-20 w-full items-center justify-center rounded-md bg-dark-blue-500 px-6 text-lg font-semibold uppercase tracking-[0.45em] text-white transition hover:bg-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dark'
                             link.setAttribute('href', '/archive/#year-' + yearValue)
                             link.setAttribute('data-year', yearValue)
                             link.textContent = yearValue

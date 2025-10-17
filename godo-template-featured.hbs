@@ -4,11 +4,9 @@
 {{!-- custom Styles For tag <body> --}}
 {{#contentFor "special_body_class"}}is-frontpage{{/contentFor}}
 
-{{> "home/featured-collection"}}
-
 {{#is "paged"}}
 {{else}}
-    {{> "home/archive-year-strip"}}
+    {{> "home/featured-collection"}}
 {{/is}}
 
 <div class="site-post container mx-auto py-vmin8">

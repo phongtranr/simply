@@ -1,120 +1,129 @@
-.archive-feed {
+.archive-entries {
   display: flex;
   flex-direction: column;
-  gap: 0;
-}
-
-.archive-post {
-  border-bottom: 1px solid rgba(226, 232, 240, 1);
-}
-
-.archive-post:last-child {
-  border-bottom: none;
-}
-
-.archive-row {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-  padding: 2.5rem 1.5rem 2.5rem 0;
-}
-
-.archive-year-cell {
-  display: flex;
-  align-items: flex-start;
-}
-
-.archive-year-badge {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  text-transform: uppercase;
-  letter-spacing: 0.35em;
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: rgba(75, 85, 99, 1);
-}
-
-.archive-year-number {
-  font-size: 1.75rem;
-  letter-spacing: 0.1em;
-  color: rgba(17, 24, 39, 1);
-}
-
-.archive-year-caption {
-  font-size: 0.75rem;
-  letter-spacing: 0.35em;
-  font-weight: 600;
-  color: rgba(107, 114, 128, 1);
+  gap: 1rem;
 }
 
 .archive-entry {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+  background: var(--white);
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+  overflow: hidden;
 }
 
-.archive-meta {
+.archive-entry-heading {
+  background: rgba(226, 232, 240, 0.4);
+}
+
+.archive-entry-link {
+  text-decoration: none;
+}
+
+.archive-year-group + .archive-year-group {
+  margin-top: 4rem;
+}
+
+.archive-year-header {
   display: flex;
-  align-items: center;
+  justify-content: flex-start;
+  padding: 0 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.archive-year-title {
+  display: flex;
+  align-items: baseline;
   gap: 1rem;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--gray-900);
+}
+
+.archive-year-number {
+  font-size: clamp(2rem, 3vw, 2.5rem);
+  line-height: 1.1;
+}
+
+.archive-year-suffix {
   font-size: 0.75rem;
   text-transform: uppercase;
-  letter-spacing: 0.35em;
-  color: rgba(107, 114, 128, 1);
-}
-
-.archive-day {
-  font-size: 0.75rem;
-  letter-spacing: 0;
-  text-transform: none;
-  color: rgba(156, 163, 175, 1);
-}
-
-.archive-title a {
-  display: inline-block;
-  font-size: 1.5rem;
+  letter-spacing: 0.5rem;
   font-weight: 600;
-  line-height: 1.35;
-  color: rgba(17, 24, 39, 1);
-  transition: color 0.2s ease, transform 0.2s ease;
+  color: var(--gray-400);
 }
 
-.archive-title a:hover,
-.archive-title a:focus {
-  color: rgba(37, 99, 235, 1);
-  transform: translateX(4px);
+.archive-months {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
-.archive-year-start .archive-row {
-  padding-top: 3rem;
+.archive-month-title {
+  font-size: 0.85rem;
+  letter-spacing: 0.35rem;
+  text-transform: uppercase;
+  color: var(--gray-400);
+  margin-bottom: 1rem;
+}
+
+.archive-post-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.archive-post-item + .archive-post-item {
+  border-top: 1px solid rgba(203, 213, 225, 0.8);
+}
+
+.archive-post-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  color: inherit;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.archive-post-link:hover,
+.archive-post-link:focus-visible {
+  background-color: rgba(191, 219, 254, 0.35);
+  transform: translateX(0.25rem);
+}
+
+.archive-post-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.archive-post-date {
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.35rem;
+  color: var(--gray-500);
 }
 
 @media (min-width: 768px) {
-  .archive-row {
-    grid-template-columns: minmax(140px, 170px) 1fr;
-    padding-right: 0;
+  .archive-months {
+    gap: 3rem;
   }
 
-  .archive-entry {
-    padding-right: 1.5rem;
+  .archive-post-link {
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
-@media (max-width: 767px) {
-  .archive-row {
-    padding: 2rem 0;
+@media (max-width: 640px) {
+  .archive-post-link {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  .archive-year-badge {
-    flex-direction: row;
-    align-items: baseline;
-    gap: 0.75rem;
-    letter-spacing: 0.25em;
-  }
-
-  .archive-year-number {
-    font-size: 1.5rem;
-    letter-spacing: 0.08em;
+  .archive-post-date {
+    letter-spacing: 0.2rem;
   }
 }
