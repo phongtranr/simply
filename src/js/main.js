@@ -69,9 +69,9 @@ const simplySetup = () => {
 
   socialMedia()
 
-  /*  Toggle modal
+  /* Toggle modal
   /* ---------------------------------------------------------- */
-  /*const simplyModal = () => {
+  /* const simplyModal = () => {
     const $modals = docSelectorAll('.js-modal')
     const $modalButtons = docSelectorAll('.js-modal-button')
     const $modalCloses = docSelectorAll('.js-modal-close')
