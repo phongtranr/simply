@@ -8,8 +8,8 @@
     </div>
 </header>
 
-<div class="site-post container mx-auto pb-10">
-    <div class="feed-entry-wrap max-w-3xl mx-auto">
+<div class="site-post container mx-auto pb-10" data-archive-root data-year-label="{{t "Thoughts"}}">
+    <div class="archive-entries max-w-3xl mx-auto" data-archive-entries>
 
         {{#foreach posts}}
         <article class="archive-post" data-year="{{date format="YYYY"}}" data-month="{{date format="MM"}}">
@@ -22,8 +22,11 @@
                     <h2 class="archive-title text-2xl font-semibold leading-snug">{{title}}</h2>
                     <time class="archive-posted mt-3 block text-sm font-medium uppercase tracking-[0.3em] text-slate-400" datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD MMM"}}</time>
                 </div>
-            </a>
-        </article>
+                <a class="archive-entry-link flex items-center justify-between gap-6 border-t border-gray-200 px-6 py-4 transition hover:bg-amber-300/60" href="{{url}}">
+                    <span class="archive-entry-title text-lg font-semibold text-title">{{title}}</span>
+                    <time class="archive-entry-date shrink-0 text-sm font-medium uppercase tracking-[0.2em] text-gray-500" datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD MMM"}}</time>
+                </a>
+            </article>
         {{/foreach}}
     </div>
 </div>

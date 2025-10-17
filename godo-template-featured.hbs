@@ -4,10 +4,10 @@
 {{!-- custom Styles For tag <body> --}}
 {{#contentFor "special_body_class"}}is-frontpage{{/contentFor}}
 
-{{!-- Featured Story --}}
-{{#get "posts" limit="1" filter="featured:true" as |godo_featured_post| }}
-    {{#if godo_featured_post}} {{#foreach godo_featured_post}}{{> "story/story-featured"}} {{/foreach}}{{/if}}
-{{/get}}
+{{#is "paged"}}
+{{else}}
+    {{> "home/featured-collection"}}
+{{/is}}
 
 <div class="site-post container mx-auto py-vmin8">
     <div class="js-feed-entry max-w-1100 mx-auto grid md:grid-cols-2 lg:grid-cols-12 gap-6">
@@ -21,7 +21,7 @@
             {{/has}}
         {{/foreach}}
     </div>
-
+    
     {{!-- Pagination - partials/pagination.hbs --}}
     {{pagination}}
 </div>
