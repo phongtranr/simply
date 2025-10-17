@@ -45,9 +45,9 @@
 }
 
 .archive-year-suffix {
-  font-size: 0.75rem;
+  font-size: 1.5rem;
   text-transform: uppercase;
-  letter-spacing: 0.5rem;
+  letter-spacing: 0.35rem;
   font-weight: 600;
   color: var(--gray-400);
 }
@@ -59,7 +59,7 @@
 }
 
 .archive-month-title {
-  font-size: 0.85rem;
+  font-size: 1.15rem;
   letter-spacing: 0.35rem;
   text-transform: uppercase;
   color: var(--gray-400);

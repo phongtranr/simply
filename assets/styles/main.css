@@ -1409,6 +1409,131 @@ a > code[class*="language-"] {
 .token.entity {
   cursor: help;
 }
+.home-tag-cloud {
+  background: #fff;
+  background: var(--blank);
+  border-top: 1px solid rgba(226, 232, 240, 0.6);
+}
+.tag-cloud-inner {
+  display: flex;
+  flex-direction: column;
+  grid-gap: 2rem;
+  gap: 2rem;
+  align-items: stretch;
+}
+.tag-cloud-heading {
+  display: flex;
+  align-items: center;
+  grid-gap: 1.5rem;
+  gap: 1.5rem;
+}
+.tag-cloud-title {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--gh-font-heading);
+  font-size: clamp(1.5rem, 4vw, 2.125rem);
+  font-weight: 700;
+  color: #18181B;
+  color: var(--gray-900);
+  margin: 0;
+}
+.tag-cloud-divider {
+  flex: 1;
+  height: 2px;
+  background: #0abe51;
+  background: var(--ghost-accent-color);
+  border-radius: 9999px;
+}
+.tag-cloud-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  grid-gap: 1rem;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+}
+.tag-cloud-item {
+  margin: 0;
+}
+.tag-cloud-link {
+  display: inline-flex;
+  align-items: center;
+  grid-gap: 0.5rem;
+  gap: 0.5rem;
+  padding: 0.65rem 1.1rem;
+  border-radius: 0.75rem;
+  background: #fff;
+  background: var(--blank);
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.12);
+  font-weight: 600;
+  color: #616161;
+  color: var(--gray-700);
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+}
+.tag-cloud-hash {
+  font-weight: 700;
+  color: #bdbdbd;
+  color: var(--gray-400);
+}
+.tag-cloud-link:hover, .tag-cloud-link.focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.18);
+  color: #0abe51;
+  color: var(--color-link);
+}
+.tag-cloud-link:hover, .tag-cloud-link:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.18);
+  color: #0abe51;
+  color: var(--color-link);
+}
+.tag-cloud-link:hover .tag-cloud-hash, .tag-cloud-link.focus-visible .tag-cloud-hash {
+  color: #0abe51;
+  color: var(--ghost-accent-color);
+}
+.tag-cloud-link:hover .tag-cloud-hash, .tag-cloud-link:focus-visible .tag-cloud-hash {
+  color: #0abe51;
+  color: var(--ghost-accent-color);
+}
+.dark .tag-cloud-link {
+  background: rgba(30, 41, 59, 0.55);
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.4);
+  color: #52525B;
+  color: var(--gray-600);
+}
+.dark .tag-cloud-link:hover, .dark .tag-cloud-link.focus-visible {
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.6);
+}
+.dark .tag-cloud-link:hover, .dark .tag-cloud-link:focus-visible {
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.6);
+}
+.dark .tag-cloud-heading {
+  color: #616161;
+  color: var(--gray-700);
+}
+@media (max-width: 640px) {
+  .tag-cloud-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    grid-gap: 0.75rem;
+    gap: 0.75rem;
+  }
+
+  .tag-cloud-divider {
+    width: 100%;
+  }
+
+  .tag-cloud-list {
+    grid-gap: 0.75rem;
+    gap: 0.75rem;
+  }
+
+  .tag-cloud-link {
+    width: 100%;
+    justify-content: center;
+  }
+}
 /* @import "./components/modal.css"; */
 /* Pages
 /* ---------------------------------------------------------- */
@@ -1615,9 +1740,9 @@ a > code[class*="language-"] {
   line-height: 1.1;
 }
 .archive-year-suffix {
-  font-size: 0.75rem;
+  font-size: 1.5rem;
   text-transform: uppercase;
-  letter-spacing: 0.5rem;
+  letter-spacing: 0.35rem;
   font-weight: 600;
   color: #bdbdbd;
   color: var(--gray-400);
@@ -1629,7 +1754,7 @@ a > code[class*="language-"] {
   gap: 2rem;
 }
 .archive-month-title {
-  font-size: 0.85rem;
+  font-size: 1.15rem;
   letter-spacing: 0.35rem;
   text-transform: uppercase;
   color: #bdbdbd;
