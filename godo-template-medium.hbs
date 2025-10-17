@@ -58,6 +58,9 @@
     {{pagination}}
 </div>
 
-    {{> "home/archive-year-strip"}}
+{{/is}}
 
+{{#is "paged"}}
+{{else}}
+    {{> "home/archive-year-strip"}}
 {{/is}}
