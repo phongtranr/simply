@@ -2,7 +2,7 @@
 {{#if @custom.home_archive_strip}}
     {{#get "posts" limit="50" filter="tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]" order="published_at desc" as |archive_posts|}}
         {{#if archive_posts}}
-            <section class="home-archive-strip border-t border-gray-200 bg-white">
+            <section class="home-archive-strip border-t border-gray-200 bg-blank">
                 <div class="container mx-auto px-4 py-16">
                     <div class="max-w-5xl mx-auto flex flex-col items-center gap-10 text-center">
                         <h2 class="text-xs font-semibold uppercase tracking-[0.5em] text-gray-400">{{t "From the archive"}}</h2>

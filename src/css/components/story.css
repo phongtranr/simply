@@ -86,8 +86,17 @@
   background: var(--bg-base);
 }
 
-.featured-collection-link {
-  background: var(--card-bg);
+.hh-date .featured-indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.5rem;
+  color: var(--ghost-accent-color);
+}
+
+.hh-date .featured-indicator .icon {
+  width: 1rem;
+  height: 1rem;
 }
 
 .featured-collection-grid {
@@ -114,18 +123,5 @@
 
 .featured-collection-tag {
   letter-spacing: 0.35em;
-}
-
-.hh-date__featured {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 0.75rem;
-  color: var(--ghost-accent-color);
-}
-
-.hh-date__featured .icon {
-  height: 1rem;
-  width: 1rem;
 }
 

@@ -1,7 +1,8 @@
 <div class="hh-date flex items-center{{#if class}} {{class}}{{else}} text-gray-500 text-sm{{/if}}">
     {{#if featured}}
-        <span class="hh-date__featured" role="img" aria-label="{{t "Featured post"}}">
-            <svg class="icon icon--star is-small" aria-hidden="true"><use xlink:href="#icon-star"></use></svg>
+        <span class="featured-indicator" title="{{t "Featured"}}">
+            <svg class="icon icon--star" aria-hidden="true"><use xlink:href="#icon-star"></use></svg>
+            <span class="sr-only">{{t "Featured"}}</span>
         </span>
     {{/if}}
     <time class="datetime capitalize" datetime="{{date format="YYYY-MM-DD"}}" {{#if updated_at}}title="{{t "Updated"}} {{date updated_at format="D MMM YYYY"}}"{{/if}}>{{date format="D MMM YYYY"}}</time>
