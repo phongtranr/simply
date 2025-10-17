@@ -90,6 +90,7 @@ collections:
     permalink: /{slug}/
     filter: 'tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]'
     template: index
+    limit: 4
 
 taxonomies:
   tag: /tag/{slug}/

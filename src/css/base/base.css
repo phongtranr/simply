@@ -1,5 +1,7 @@
 html {
   @apply text-base;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 body {
@@ -12,10 +14,23 @@ body {
 
   color: var(--text-base);
   background-color: var(--bg-base) ;
+  font-family: var(--gh-font-body, "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
   letter-spacing: 0;
   margin: 0 auto;
   overflow-x: hidden;
   text-rendering: optimizeLegibility;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 a {
