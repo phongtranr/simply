@@ -5,6 +5,8 @@
   --ghost-accent-color: $primary-color;
   --color-primary: var(--ghost-accent-color);
   --blank: #fff;
+  --gh-font-heading: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --gh-font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
   /* Global Color */
   --bg-base: #fff;
@@ -17,6 +19,8 @@
   /* story */
   --story-small-bg: #fff;
   --card-bg: #fff;
+  --story-card-ring: rgba(16, 43, 123, 0.22);
+  --story-card-ring-strong: rgba(16, 43, 123, 0.38);
 
   /* Drop Down */
   --dropdown-text: $primary-text-color;
@@ -71,6 +75,8 @@
 
 .dark {
   --blank: #111;
+  --gh-font-heading: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --gh-font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
   /* Global */
   --bg-base: #111;
@@ -83,6 +89,8 @@
   /* story */
   --story-small-bg: #131212;
   --card-bg: #131212;
+  --story-card-ring: rgba(148, 163, 184, 0.35);
+  --story-card-ring-strong: rgba(148, 163, 184, 0.55);
 
   /* Drop Down */
   --dropdown-text: #fff;
@@ -140,4 +148,16 @@
     color: #a8bcc5;
   }
 
+}
+
+@supports (color: color-mix(in srgb, #000 50%, transparent)) {
+  :root {
+    --story-card-ring: color-mix(in srgb, var(--ghost-accent-color) 25%, transparent);
+    --story-card-ring-strong: color-mix(in srgb, var(--ghost-accent-color) 45%, transparent);
+  }
+
+  .dark {
+    --story-card-ring: color-mix(in srgb, var(--ghost-accent-color) 30%, transparent);
+    --story-card-ring-strong: color-mix(in srgb, var(--ghost-accent-color) 55%, transparent);
+  }
 }

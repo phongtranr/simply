@@ -57,3 +57,9 @@
 </div>
 
 {{/is}}
+
+{{#is "paged"}}
+{{else}}
+    {{> "home/tag-cloud"}}
+    {{> "home/archive-year-strip"}}
+{{/is}}
