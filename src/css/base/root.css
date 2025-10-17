@@ -5,6 +5,8 @@
   --ghost-accent-color: $primary-color;
   --color-primary: var(--ghost-accent-color);
   --blank: #fff;
+  --gh-font-heading: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --gh-font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
   /* Global Color */
   --bg-base: #fff;
@@ -71,6 +73,8 @@
 
 .dark {
   --blank: #111;
+  --gh-font-heading: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --gh-font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
   /* Global */
   --bg-base: #111;
