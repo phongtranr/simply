@@ -1,0 +1,50 @@
+{{!-- Homepage archive navigation linking to yearly sections on the archive channel --}}
+{{#if @custom.home_archive_strip}}
+    {{#get "posts" limit="500" filter="tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]" order="published_at desc" as |archive_posts|}}
+        {{#if archive_posts}}
+            <section class="home-archive-strip border-y border-gray-200 bg-gray-50">
+                <div class="container mx-auto px-4 py-10">
+                    <div class="max-w-3xl mx-auto text-center">
+                        <h2 class="text-sm font-semibold uppercase tracking-[0.4em] text-gray-500">{{t "From the archive"}}</h2>
+                    </div>
+                    <nav class="archive-year-links mt-8" aria-label="{{t "Archive years"}}">
+                        <ul class="archive-year-grid mx-auto grid max-w-4xl grid-cols-1 gap-3 sm:gap-4 md:grid-cols-3 md:gap-5 lg:grid-cols-4 xl:grid-cols-6">
+                            {{#foreach archive_posts}}
+                                <li class="archive-year-tile" data-year="{{date published_at format="YYYY"}}">
+                                    <a class="block w-full rounded-md bg-dark px-6 py-3 text-center text-sm font-semibold uppercase tracking-wide text-white transition hover:bg-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary md:w-32 lg:w-36" href="/archive/#year-{{date published_at format="YYYY"}}">{{date published_at format="YYYY"}}</a>
+                                </li>
+                            {{/foreach}}
+                        </ul>
+                    </nav>
+                </div>
+            </section>
+            <script>
+                (function () {
+                    var script = document.currentScript
+                    if (!script) {
+                        return
+                    }
+                    var container = script.previousElementSibling
+                    if (!container) {
+                        return
+                    }
+                    var nav = container.querySelector('nav.archive-year-links')
+                    if (!nav) {
+                        return
+                    }
+                    var seenYears = []
+                    Array.prototype.slice.call(nav.querySelectorAll('.archive-year-tile[data-year]')).forEach(function (item) {
+                        var year = item.getAttribute('data-year')
+                        if (seenYears.indexOf(year) !== -1) {
+                            if (item.parentNode) {
+                                item.parentNode.removeChild(item)
+                            }
+                        } else {
+                            seenYears.push(year)
+                        }
+                    })
+                })()
+            </script>
+        {{/if}}
+    {{/get}}
+{{/if}}

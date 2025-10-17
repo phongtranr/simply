@@ -3,6 +3,8 @@
 
 :root {
   --ghost-accent-color: $primary-color;
+  --gh-font-heading: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --gh-font-body: "Inter", "Helvetica Neue", Arial, sans-serif;
   --color-primary: var(--ghost-accent-color);
   --blank: #fff;
 

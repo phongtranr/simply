@@ -12,6 +12,7 @@ body {
 
   color: var(--text-base);
   background-color: var(--bg-base) ;
+  font-family: var(--gh-font-body, "Inter", "Helvetica Neue", Arial, sans-serif);
   letter-spacing: 0;
   margin: 0 auto;
   overflow-x: hidden;
