@@ -1,0 +1,36 @@
+{{#get "posts" limit="4" filter="featured:true" order="published_at desc" as |featured_posts|}}
+    {{#if featured_posts}}
+        <section class="home-featured-collection">
+            <div class="container mx-auto px-4 py-14">
+                <div class="max-w-6xl mx-auto flex flex-col gap-8">
+                    <div class="flex items-baseline justify-between">
+                        <h2 class="text-2xl font-semibold text-title">{{t "Featured"}}</h2>
+                    </div>
+                    <div class="featured-collection-grid grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+                        {{#foreach featured_posts}}
+                            <article class="featured-collection-card group">
+                                <a class="featured-collection-link flex h-full flex-col overflow-hidden rounded-lg" href="{{url}}">
+                                    {{#if feature_image}}
+                                        <figure class="featured-collection-image relative aspect-[4/3] w-full overflow-hidden bg-gray-200">
+                                            <img class="featured-collection-img h-full w-full object-cover blur-up lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-srcset="{{img_url feature_image size="xs"}} 100w, {{img_url feature_image size="s"}} 300w, {{img_url feature_image size="m"}} 600w, {{img_url feature_image size="l"}} 1000w" data-sizes="auto" alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}" />
+                                        </figure>
+                                    {{/if}}
+                                    <div class="featured-collection-body flex grow flex-col gap-4 p-6 text-left">
+                                        <h3 class="text-lg font-semibold leading-tight text-title">{{title}}</h3>
+                                        {{#if tags}}
+                                            <div class="featured-collection-tags flex flex-wrap gap-2">
+                                                {{#foreach tags limit="2"}}
+                                                    <a class="featured-collection-tag inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-gray-600 transition hover:bg-dark-blue-500 hover:text-white" href="{{url}}">{{name}}</a>
+                                                {{/foreach}}
+                                            </div>
+                                        {{/if}}
+                                    </div>
+                                </a>
+                            </article>
+                        {{/foreach}}
+                    </div>
+                </div>
+            </div>
+        </section>
+    {{/if}}
+{{/get}}
