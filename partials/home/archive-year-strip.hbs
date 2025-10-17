@@ -1,53 +1,102 @@
 {{!-- Homepage archive navigation linking to yearly sections on the archive channel --}}
 {{#if @custom.home_archive_strip}}
-    {{#get "posts" limit="100" filter="tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]" order="published_at desc" as |archive_posts|}}
-        {{#if archive_posts}}
-            <section class="home-archive-strip border-y border-gray-200 bg-rose-50/40">
-                <div class="container mx-auto px-4 py-12">
-                    <div class="max-w-4xl mx-auto flex flex-col items-center gap-8 text-center">
-                        <h2 class="text-xs font-semibold uppercase tracking-[0.35em] text-gray-500">{{t "From the archive"}}</h2>
-                        <nav class="archive-year-links w-full" aria-label="Archive years">
-                            <ul class="archive-year-grid mx-auto grid w-full grid-cols-1 gap-3 sm:max-w-3xl sm:grid-cols-2 lg:max-w-none lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
-                                {{#foreach archive_posts}}
-                                    <li>
-                                        <a class="flex h-16 w-full items-center justify-center rounded-md bg-dark-blue-500 px-6 text-lg font-semibold uppercase tracking-wide text-white transition hover:bg-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dark" href="/archive/#year-{{date published_at format="YYYY"}}" data-year="{{date published_at format="YYYY"}}">{{date published_at format="YYYY"}}</a>
-                                    </li>
-                                {{/foreach}}
-                            </ul>
-                        </nav>
+    {{#get "posts" limit="100" filter="tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]" order="published_at desc" as |recent_archive_posts|}}
+        {{#if recent_archive_posts}}
+            {{#get "posts" limit="1" filter="tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]" order="published_at asc" as |oldest_archive_post|}}
+                <section class="home-archive-strip border-y border-gray-200 bg-rose-50/40"
+                    data-newest-year="{{#foreach recent_archive_posts}}{{#if @first}}{{date published_at format="YYYY"}}{{/if}}{{/foreach}}"
+                    data-oldest-year="{{#foreach oldest_archive_post}}{{date published_at format="YYYY"}}{{/foreach}}">
+                    <div class="container mx-auto px-4 py-12">
+                        <div class="max-w-4xl mx-auto flex flex-col items-center gap-8 text-center">
+                            <h2 class="text-xs font-semibold uppercase tracking-[0.35em] text-gray-500">{{t "From the archive"}}</h2>
+                            <nav class="archive-year-links w-full" aria-label="Archive years">
+                                <ul class="archive-year-grid mx-auto grid w-full grid-cols-1 gap-3 sm:max-w-3xl sm:grid-cols-2 lg:max-w-none lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+                                    {{#foreach recent_archive_posts}}
+                                        <li>
+                                            <a class="archive-year-tile flex h-16 w-full items-center justify-center rounded-md bg-dark-blue-500 px-6 text-lg font-semibold uppercase tracking-wide text-white transition hover:bg-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dark" href="/archive/#year-{{date published_at format="YYYY"}}" data-year="{{date published_at format="YYYY"}}">{{date published_at format="YYYY"}}</a>
+                                        </li>
+                                    {{/foreach}}
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
-                </div>
-            </section>
-            <script>
-                (function () {
-                    var script = document.currentScript
-                    if (!script) {
-                        return
-                    }
-                    var container = script.previousElementSibling
-                    if (!container) {
-                        return
-                    }
-                    var nav = container.querySelector('nav.archive-year-links')
-                    if (!nav) {
-                        return
-                    }
-                    var seenYears = []
-                    Array.prototype.slice.call(nav.querySelectorAll('a[data-year]')).forEach(function (link) {
-                        var year = link.getAttribute('data-year')
-                        if (seenYears.indexOf(year) !== -1) {
-                            var item = link.closest('li')
-                            if (item && item.parentNode) {
-                                item.parentNode.removeChild(item)
-                            } else {
-                                link.parentNode.removeChild(link)
-                            }
-                        } else {
-                            seenYears.push(year)
+                </section>
+                <script>
+                    (function () {
+                        var script = document.currentScript
+                        if (!script) {
+                            return
                         }
-                    })
-                })()
-            </script>
+                        var container = script.previousElementSibling
+                        if (!container) {
+                            return
+                        }
+                        var nav = container.querySelector('nav.archive-year-links')
+                        if (!nav) {
+                            return
+                        }
+                        var list = nav.querySelector('ul')
+                        if (!list) {
+                            return
+                        }
+
+                        var seenYears = []
+                        var template = null
+
+                        function updateTile (node, yearLabel) {
+                            var link = node.querySelector('a[data-year]') || node.querySelector('a')
+                            if (!link) {
+                                link = document.createElement('a')
+                                link.className = 'archive-year-tile flex h-16 w-full items-center justify-center rounded-md bg-dark-blue-500 px-6 text-lg font-semibold uppercase tracking-wide text-white transition hover:bg-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dark'
+                                node.appendChild(link)
+                            }
+                            link.setAttribute('data-year', yearLabel)
+                            link.href = '/archive/#year-' + yearLabel
+                            link.textContent = yearLabel
+                        }
+
+                        Array.prototype.slice.call(list.children).forEach(function (item) {
+                            var link = item.querySelector('a[data-year]')
+                            if (!link) {
+                                list.removeChild(item)
+                                return
+                            }
+                            var year = link.getAttribute('data-year')
+                            if (seenYears.indexOf(year) !== -1) {
+                                list.removeChild(item)
+                                return
+                            }
+                            seenYears.push(year)
+                            if (!template) {
+                                template = item.cloneNode(true)
+                                updateTile(template, '')
+                            }
+                            updateTile(item, year)
+                        })
+
+                        var newestYear = parseInt(container.getAttribute('data-newest-year'), 10)
+                        var oldestYear = parseInt(container.getAttribute('data-oldest-year'), 10)
+
+                        if (!isNaN(newestYear) && !isNaN(oldestYear)) {
+                            if (newestYear < oldestYear) {
+                                var swap = newestYear
+                                newestYear = oldestYear
+                                oldestYear = swap
+                            }
+                            for (var year = newestYear; year >= oldestYear; year--) {
+                                var label = String(year)
+                                if (seenYears.indexOf(label) !== -1) {
+                                    continue
+                                }
+                                var newItem = template ? template.cloneNode(true) : document.createElement('li')
+                                updateTile(newItem, label)
+                                seenYears.push(label)
+                                list.appendChild(newItem)
+                            }
+                        }
+                    })()
+                </script>
+            {{/get}}
         {{/if}}
     {{/get}}
 {{/if}}
