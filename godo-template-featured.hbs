@@ -4,7 +4,10 @@
 {{!-- custom Styles For tag <body> --}}
 {{#contentFor "special_body_class"}}is-frontpage{{/contentFor}}
 
-{{> "home/featured-collection"}}
+{{!-- Featured Story --}}
+{{#get "posts" limit="1" filter="featured:true" as |godo_featured_post| }}
+    {{#if godo_featured_post}} {{#foreach godo_featured_post}}{{> "story/story-featured"}} {{/foreach}}{{/if}}
+{{/get}}
 
 {{#is "paged"}}
 {{else}}
@@ -23,12 +26,7 @@
             {{/has}}
         {{/foreach}}
     </div>
-    
+
     {{!-- Pagination - partials/pagination.hbs --}}
     {{pagination}}
 </div>
-
-{{#is "paged"}}
-{{else}}
-    {{> "home/archive-year-strip"}}
-{{/is}}

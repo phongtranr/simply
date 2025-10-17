@@ -9,29 +9,35 @@
 </header>
 
 <div class="site-post container mx-auto pb-10">
-    <div class="feed-entry-wrap archive-feed max-w-3xl mx-auto">
+    <div class="feed-entry-wrap max-w-3xl mx-auto">
 
         {{#foreach posts}}
         <article class="archive-post" data-year="{{date format="YYYY"}}" data-month="{{date format="MM"}}">
-            <div class="archive-row">
-                <div class="archive-year-cell">
-                    <div class="archive-year-badge" data-archive-year-label>
-                        <span class="archive-year-number">{{date format="YYYY"}}</span>
-                        <span class="archive-year-caption">{{t "Thoughts"}}</span>
-                    </div>
+            <header class="archive-heading flex items-baseline px-6 pt-6 pb-2" data-archive-heading>
+                <h2 class="archive-month flex items-baseline gap-3 text-2xl font-bold capitalize">
+                    <span class="archive-month-name">{{date format="MMMM"}}</span>
+                    <span class="archive-year text-base font-semibold uppercase tracking-[0.35em] text-gray-500">{{date format="YYYY"}}</span>
+                </h2>
+            </header>
+            <a class="archive-link block text-title hover:text-dark" href="{{url}}">
+                <div class="border-t border-gray-200 px-6 py-4 transition hover:bg-amber-300/60">
+                    <h2 class="archive-title text-xl font-bold">{{title}}</h2>
+                    {{!-- Date Time and reading Time - ./partials/components/datetime.hbs --}}
+                    {{> "components/datetime" class="mt-2 text-gray-500 text-sm"}}
                 </div>
-                <div class="archive-entry">
-                    <div class="archive-meta">
-                        <span class="archive-month">{{date format="MMMM"}}</span>
-                        <span class="archive-day">{{date format="DD MMM"}}</span>
-                    </div>
-                    <h2 class="archive-title"><a href="{{url}}">{{title}}</a></h2>
-                </div>
-            </div>
+            </a>
         </article>
         {{/foreach}}
     </div>
 </div>
+
+{{#contentFor "header"}}
+<style>
+    .archive-post + .archive-post .archive-heading {
+        border-top: 1px solid rgba(203, 213, 225, 1);
+    }
+</style>
+{{/contentFor}}
 
 {{#contentFor "scripts"}}
 <script>
@@ -44,19 +50,31 @@
         if (!articles.length) {
             return
         }
-        var seenYears = Object.create(null)
+        var seenYears = []
+        var seenMonths = []
         articles.forEach(function (article) {
             var year = article.getAttribute('data-year')
-            if (!year) {
+            var month = article.getAttribute('data-month')
+            var heading = article.querySelector('[data-archive-heading]')
+            var monthLabel = heading ? heading.querySelector('.archive-month') : null
+            if (!year || !month) {
                 return
             }
-            var yearBadge = article.querySelector('[data-archive-year-label]')
-            if (!seenYears[year]) {
-                seenYears[year] = true
+
+            if (seenYears.indexOf(year) === -1) {
+                seenYears.push(year)
                 article.id = 'year-' + year
-                article.classList.add('archive-year-start')
-            } else if (yearBadge && yearBadge.parentNode) {
-                yearBadge.parentNode.removeChild(yearBadge)
+            }
+
+            var monthKey = year + '-' + month
+            if (monthLabel) {
+                if (seenMonths.indexOf(monthKey) !== -1) {
+                    if (heading && heading.parentNode) {
+                        heading.parentNode.removeChild(heading)
+                    }
+                } else {
+                    seenMonths.push(monthKey)
+                }
             }
         })
     })()
