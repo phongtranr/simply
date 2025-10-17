@@ -28,6 +28,9 @@
   /* link */
   --color-link: var(--ghost-accent-color);
 
+  --gh-font-heading: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --gh-font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+
   --border-color: #e2ecec;
 
   /* gray */
@@ -123,6 +126,9 @@
 
   /* cta */
   --bg-cta: rgb(17 17 17);
+
+  --gh-font-heading: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --gh-font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 
   /* Table */
   table th,
