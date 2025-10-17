@@ -4,7 +4,7 @@
   }
 
   &-publisher {
-    @apply text-sm font-medium uppercase tracking-wide text-gray-500;
+    @apply text-xs font-medium uppercase tracking-wide text-gray-500;
   }
 
   &-content {

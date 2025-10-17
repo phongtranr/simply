@@ -13,9 +13,9 @@ h5,
 h6 {
   @extend %font-sans;
 
-  font-family: var(--gh-font-heading, "Inter", "Helvetica Neue", Arial, sans-serif);
   font-weight: 700;
   line-height: 1.25;
+  font-family: var(--gh-font-heading, "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
 }
 
 h1 {
