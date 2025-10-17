@@ -1,52 +1,38 @@
-{{!-- Horizontal featured collection for the homepage --}}
+{{!-- Featured grid used on the homepage when the Featured cover is selected --}}
 {{#get "posts" limit="4" filter="featured:true" include="tags" as |featured_posts|}}
     {{#if featured_posts}}
-        <section class="home-featured-collection border-b border-gray-200">
-            <div class="container mx-auto px-4 py-12">
-                <div class="mx-auto flex max-w-6xl flex-col gap-8">
-                    <div class="flex items-center justify-between">
-                        <h2 class="text-sm font-semibold uppercase tracking-[0.35em] text-gray-500">{{t "Featured"}}</h2>
-                    </div>
-                    <div class="featured-collection-grid grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-                        {{#foreach featured_posts}}
-                            <article class="featured-collection-card flex h-full flex-col overflow-hidden rounded-lg border border-gray-200 bg-white transition duration-200 hover:-translate-y-1 hover:shadow-card-primary focus-within:-translate-y-1 focus-within:shadow-card-primary">
-                                {{#if feature_image}}
-                                    <a href="{{url}}" class="relative block">
-                                        <figure class="featured-collection-media overflow-hidden">
-                                            <img
-                                                class="block h-full w-full object-cover blur-up lazyload"
-                                                src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                                                data-srcset="{{img_url feature_image size="xs"}} 100w,
-                                                    {{img_url feature_image size="s"}} 300w,
-                                                    {{img_url feature_image size="m"}} 600w,
-                                                    {{img_url feature_image size="l"}} 1000w"
-                                                data-sizes="auto"
-                                                alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
-                                            />
+        {{#is "paged"}}
+        {{else}}
+            <section class="home-featured-collection">
+                <div class="container mx-auto px-4 py-16">
+                    <div class="home-featured-inner mx-auto max-w-5xl">
+                        <div class="home-featured-header mb-10 flex flex-col gap-3 text-left">
+                            <span class="home-featured-kicker text-xs font-semibold uppercase tracking-[0.4em] text-gray-500">{{t "Featured"}}</span>
+                        </div>
+                        <div class="home-featured-grid grid gap-10 sm:grid-cols-2 xl:grid-cols-4">
+                            {{#foreach featured_posts}}
+                                <article class="home-featured-card">
+                                    {{#if feature_image}}
+                                        <figure class="home-featured-figure">
+                                            <a class="home-featured-image" href="{{url}}">
+                                                <img class="home-featured-img blur-up lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-srcset="{{img_url feature_image size="xs"}} 100w, {{img_url feature_image size="s"}} 300w, {{img_url feature_image size="m"}} 600w, {{img_url feature_image size="l"}} 1000w" data-sizes="auto" alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}" />
+                                            </a>
                                         </figure>
-                                    </a>
-                                {{else}}
-                                    <div class="featured-collection-media featured-collection-media--placeholder">
-                                        <span class="featured-collection-media-label">{{t "Featured story"}}</span>
-                                    </div>
-                                {{/if}}
-                                <div class="flex grow flex-col px-6 py-6">
-                                    <h3 class="featured-collection-title text-lg font-semibold text-title">
-                                        <a href="{{url}}" class="line-clamp-2 transition hover:text-dark">{{title}}</a>
-                                    </h3>
-                                    {{#if tags}}
-                                        <div class="mt-4 flex flex-wrap gap-2">
-                                            {{#foreach tags limit="3"}}
-                                                <a href="{{url}}" class="featured-collection-tag">{{name}}</a>
-                                            {{/foreach}}
-                                        </div>
                                     {{/if}}
-                                </div>
-                            </article>
-                        {{/foreach}}
+                                    <div class="home-featured-body">
+                                        <h3 class="home-featured-card-title"><a href="{{url}}">{{title}}</a></h3>
+                                        {{#if primary_tag}}
+                                            <div class="home-featured-tags">
+                                                <span class="home-featured-tag">{{primary_tag.name}}</span>
+                                            </div>
+                                        {{/if}}
+                                    </div>
+                                </article>
+                            {{/foreach}}
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        {{/is}}
     {{/if}}
 {{/get}}

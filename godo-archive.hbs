@@ -8,28 +8,28 @@
     </div>
 </header>
 
-<div class="site-post container mx-auto pb-16">
-    <div class="feed-entry-wrap mx-auto max-w-4xl">
-        <div class="archive-timeline">
-            {{#foreach posts}}
-                <article class="archive-post" data-year="{{date format="YYYY"}}" data-month="{{date format="MM"}}">
-                    <header class="archive-heading" data-archive-heading>
-                        <div class="archive-heading-year" data-archive-year>
-                            <span class="archive-year-value">{{date format="YYYY"}}</span>
-                        </div>
-                        <div class="archive-heading-month" data-archive-month>
-                            <span class="archive-month-name">{{date format="MMMM"}}</span>
-                        </div>
-                    </header>
-                    <a class="archive-link" href="{{url}}">
-                        <div class="archive-card">
-                            <h2 class="archive-title">{{title}}</h2>
-                            <time class="archive-date" datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD MMM"}}</time>
-                        </div>
-                    </a>
-                </article>
-            {{/foreach}}
-        </div>
+<div class="site-post container mx-auto pb-10">
+    <div class="feed-entry-wrap archive-feed max-w-3xl mx-auto">
+
+        {{#foreach posts}}
+        <article class="archive-post" data-year="{{date format="YYYY"}}" data-month="{{date format="MM"}}">
+            <div class="archive-row">
+                <div class="archive-year-cell">
+                    <div class="archive-year-badge" data-archive-year-label>
+                        <span class="archive-year-number">{{date format="YYYY"}}</span>
+                        <span class="archive-year-caption">{{t "Thoughts"}}</span>
+                    </div>
+                </div>
+                <div class="archive-entry">
+                    <div class="archive-meta">
+                        <span class="archive-month">{{date format="MMMM"}}</span>
+                        <span class="archive-day">{{date format="DD MMM"}}</span>
+                    </div>
+                    <h2 class="archive-title"><a href="{{url}}">{{title}}</a></h2>
+                </div>
+            </div>
+        </article>
+        {{/foreach}}
     </div>
 </div>
 
@@ -44,40 +44,20 @@
         if (!articles.length) {
             return
         }
-        var seenYears = []
-        var seenMonths = []
+        var seenYears = Object.create(null)
         articles.forEach(function (article) {
             var year = article.getAttribute('data-year')
-            var month = article.getAttribute('data-month')
-            var heading = article.querySelector('[data-archive-heading]')
-            var yearLabel = heading ? heading.querySelector('[data-archive-year]') : null
-            var monthLabel = heading ? heading.querySelector('[data-archive-month]') : null
-            if (!year || !month) {
+            if (!year) {
                 return
             }
-
-            if (seenYears.indexOf(year) === -1) {
-                seenYears.push(year)
+            var yearBadge = article.querySelector('[data-archive-year-label]')
+            if (!seenYears[year]) {
+                seenYears[year] = true
                 article.id = 'year-' + year
-                article.classList.add('archive-post--year-start')
-            } else if (yearLabel) {
-                yearLabel.classList.add('archive-year--hidden')
-                yearLabel.setAttribute('aria-hidden', 'true')
+                article.classList.add('archive-year-start')
+            } else if (yearBadge && yearBadge.parentNode) {
+                yearBadge.parentNode.removeChild(yearBadge)
             }
-
-            var monthKey = year + '-' + month
-            if (monthLabel) {
-                if (seenMonths.indexOf(monthKey) !== -1) {
-                    if (heading) {
-                        heading.classList.add('archive-heading--hidden')
-                        heading.setAttribute('aria-hidden', 'true')
-                    }
-                } else {
-                    seenMonths.push(monthKey)
-                    heading.classList.add('archive-heading--month-start')
-                }
-            }
-
         })
     })()
 </script>

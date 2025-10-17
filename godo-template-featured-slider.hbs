@@ -25,3 +25,8 @@
     {{!-- Pagination - partials/pagination.hbs --}}
     {{pagination}}
 </div>
+
+{{#is "paged"}}
+{{else}}
+    {{> "home/archive-year-strip"}}
+{{/is}}

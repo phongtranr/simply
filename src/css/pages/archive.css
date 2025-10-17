@@ -1,0 +1,120 @@
+.archive-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.archive-post {
+  border-bottom: 1px solid rgba(226, 232, 240, 1);
+}
+
+.archive-post:last-child {
+  border-bottom: none;
+}
+
+.archive-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  padding: 2.5rem 1.5rem 2.5rem 0;
+}
+
+.archive-year-cell {
+  display: flex;
+  align-items: flex-start;
+}
+
+.archive-year-badge {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(75, 85, 99, 1);
+}
+
+.archive-year-number {
+  font-size: 1.75rem;
+  letter-spacing: 0.1em;
+  color: rgba(17, 24, 39, 1);
+}
+
+.archive-year-caption {
+  font-size: 0.75rem;
+  letter-spacing: 0.35em;
+  font-weight: 600;
+  color: rgba(107, 114, 128, 1);
+}
+
+.archive-entry {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.archive-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  color: rgba(107, 114, 128, 1);
+}
+
+.archive-day {
+  font-size: 0.75rem;
+  letter-spacing: 0;
+  text-transform: none;
+  color: rgba(156, 163, 175, 1);
+}
+
+.archive-title a {
+  display: inline-block;
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: rgba(17, 24, 39, 1);
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.archive-title a:hover,
+.archive-title a:focus {
+  color: rgba(37, 99, 235, 1);
+  transform: translateX(4px);
+}
+
+.archive-year-start .archive-row {
+  padding-top: 3rem;
+}
+
+@media (min-width: 768px) {
+  .archive-row {
+    grid-template-columns: minmax(140px, 170px) 1fr;
+    padding-right: 0;
+  }
+
+  .archive-entry {
+    padding-right: 1.5rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .archive-row {
+    padding: 2rem 0;
+  }
+
+  .archive-year-badge {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 0.75rem;
+    letter-spacing: 0.25em;
+  }
+
+  .archive-year-number {
+    font-size: 1.5rem;
+    letter-spacing: 0.08em;
+  }
+}
