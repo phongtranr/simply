@@ -4,8 +4,6 @@
 :root {
   --ghost-accent-color: $primary-color;
   --color-primary: var(--ghost-accent-color);
-  --gh-font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --gh-font-heading: var(--gh-font-body);
   --blank: #fff;
 
   /* Global Color */
