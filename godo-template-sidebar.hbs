@@ -19,3 +19,8 @@
         {{>"sidebar/sidebar"}}
     </div>
 </div>
+
+{{#is "paged"}}
+{{else}}
+    {{> "home/archive-year-strip"}}
+{{/is}}
