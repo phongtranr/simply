@@ -1,5 +1,5 @@
-<article class="story js-story flex flex-col grow relative mb-3{{#if story_class}} {{story_class}}{{/if}}{{#unless feature_image}} story--no-image{{/unless}} group">
-    <div class="story-card relative flex h-full flex-col overflow-hidden rounded bg-blank shadow-4xl transition-all duration-200 group-hover:shadow-card-primary">
+<article class="story js-story flex w-full min-w-0 flex-col grow relative mb-3{{#if story_class}} {{story_class}}{{/if}}{{#unless feature_image}} story--no-image{{/unless}} group">
+    <div class="story-card relative flex h-full min-w-0 flex-col overflow-hidden rounded bg-blank shadow-4xl transition-all duration-200 group-hover:shadow-card-primary">
         {{#if feature_image}}
             <figure class="story-image relative h-52 w-full overflow-hidden border-b border-gray-200 bg-gray-200">
                 <a href="{{url}}" class="block h-full w-full">

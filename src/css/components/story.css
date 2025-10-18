@@ -7,6 +7,24 @@
   text-decoration: underline;
 }
 
+.site-post {
+  overflow-x: clip;
+}
+
+@supports not (overflow: clip) {
+  .site-post {
+    overflow-x: hidden;
+  }
+}
+
+.js-feed-entry {
+  width: 100%;
+}
+
+.js-feed-entry > * {
+  min-width: 0;
+}
+
 .story {
   .story-card {
     position: relative;

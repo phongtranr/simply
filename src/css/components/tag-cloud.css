@@ -13,7 +13,10 @@
 .tag-cloud-heading {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  justify-content: center;
+  gap: 1.25rem;
+  text-align: center;
+  flex-wrap: nowrap;
 }
 
 .tag-cloud-title {
@@ -25,10 +28,24 @@
 }
 
 .tag-cloud-divider {
-  flex: 1;
+  flex: 1 1 0;
+  min-width: 1.75rem;
   height: 2px;
   background: var(--ghost-accent-color);
   border-radius: 9999px;
+  opacity: 0.85;
+}
+
+.section-heading {
+  width: 100%;
+}
+
+.section-heading .tag-cloud-title {
+  color: var(--gray-900);
+}
+
+.section-heading .tag-cloud-divider {
+  max-width: 8rem;
 }
 
 .tag-cloud-list {
@@ -90,15 +107,22 @@
   color: var(--gray-700);
 }
 
+.dark .tag-cloud-heading .tag-cloud-divider {
+  background: rgba(148, 163, 184, 0.45);
+  opacity: 1;
+}
+
+.dark .section-heading .tag-cloud-title {
+  color: var(--gray-900);
+}
+
 @media (max-width: 640px) {
   .tag-cloud-heading {
-    flex-direction: column;
-    align-items: flex-start;
     gap: 0.75rem;
   }
 
   .tag-cloud-divider {
-    width: 100%;
+    min-width: 1.25rem;
   }
 
   .tag-cloud-list {
