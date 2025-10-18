@@ -40,6 +40,12 @@
   color: var(--gray-900);
 }
 
+.archive-year-title .tag-cloud-divider {
+  flex: 1 1 10rem;
+  max-width: 16rem;
+  height: 2px;
+}
+
 .archive-year-number {
   font-size: clamp(2rem, 3vw, 2.5rem);
   line-height: 1.1;
@@ -53,11 +59,6 @@
   color: var(--gray-400);
 }
 
-.archive-year-title .tag-cloud-divider {
-  flex: 1 1 10rem;
-  max-width: none;
-}
-
 .archive-months {
   display: flex;
   flex-direction: column;
@@ -69,30 +70,24 @@
   align-items: center;
   justify-content: flex-end;
   gap: 0.75rem;
-  width: 100%;
   font-size: 1.15rem;
   letter-spacing: 0.35rem;
   text-transform: uppercase;
   color: var(--gray-400);
   margin-bottom: 1rem;
+  text-align: right;
 }
 
-.archive-month-marker {
-  font-size: 1.25rem;
+.archive-month-bullet {
+  font-size: 1rem;
   color: var(--ghost-accent-color);
 }
 
-.archive-month-text {
+.archive-month-label {
   display: inline-flex;
   align-items: center;
-}
-
-.dark .archive-month-title {
-  color: var(--gray-500);
-}
-
-.dark .archive-month-marker {
-  color: var(--ghost-accent-color);
+  justify-content: flex-end;
+  min-width: 6rem;
 }
 
 .archive-post-list {

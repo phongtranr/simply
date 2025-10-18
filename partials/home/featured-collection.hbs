@@ -19,15 +19,22 @@
                                     {{/if}}
                                     <div class="featured-collection-body flex grow flex-col gap-4 p-6 text-left">
                                         {{#if primary_tag}}
-                                            <a class="featured-collection-category" href="{{primary_tag.url}}">{{primary_tag.name}}</a>
+                                            <a class="featured-collection-category inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.35em] text-gray-500 transition hover:text-dark-blue-500" href="{{primary_tag.url}}">
+                                                <span class="sr-only">{{t "Category"}}:</span>
+                                                <span class="featured-collection-category-label">{{primary_tag.name}}</span>
+                                            </a>
                                         {{/if}}
                                         <h3 class="text-lg font-semibold leading-tight text-title">{{title}}</h3>
-                                        {{#if excerpt}}
-                                            <p class="featured-collection-excerpt">{{excerpt words="26"}}</p>
-                                        {{/if}}
+                                        <p class="featured-collection-excerpt text-base text-gray-600">
+                                            {{#if custom_excerpt}}
+                                                {{custom_excerpt}}
+                                            {{else}}
+                                                {{excerpt words="26"}}
+                                            {{/if}}
+                                        </p>
                                         {{#if tags}}
                                             <div class="featured-collection-tags flex flex-wrap gap-2">
-                                                {{#foreach tags from="2" limit="2"}}
+                                                {{#foreach tags limit="2"}}
                                                     <a class="featured-collection-tag inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-gray-600 transition hover:bg-dark-blue-500 hover:text-white" href="{{url}}">{{name}}</a>
                                                 {{/foreach}}
                                             </div>

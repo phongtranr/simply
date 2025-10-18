@@ -143,14 +143,14 @@
                 var monthHeading = document.createElement('h3')
                 monthHeading.className = 'archive-month-title'
 
-                var monthMarker = document.createElement('span')
-                monthMarker.className = 'archive-month-marker'
-                monthMarker.setAttribute('aria-hidden', 'true')
-                monthMarker.textContent = '✦'
-                monthHeading.appendChild(monthMarker)
+                var monthBullet = document.createElement('span')
+                monthBullet.className = 'archive-month-bullet'
+                monthBullet.setAttribute('aria-hidden', 'true')
+                monthBullet.textContent = '✦'
+                monthHeading.appendChild(monthBullet)
 
                 var monthLabel = document.createElement('span')
-                monthLabel.className = 'archive-month-text'
+                monthLabel.className = 'archive-month-label'
                 monthLabel.textContent = monthInfo.name
                 monthHeading.appendChild(monthLabel)
 
@@ -177,26 +177,29 @@
                     }
 
                     var metaNode = clonedLink.querySelector('.archive-entry-meta')
-                    var dateNode
-                    var featuredNode
-
                     if (metaNode) {
                         metaNode.className = 'archive-post-meta'
-                        dateNode = metaNode.querySelector('.archive-entry-date')
-                        featuredNode = metaNode.querySelector('.archive-entry-featured')
-                    } else {
-                        dateNode = clonedLink.querySelector('.archive-entry-date')
-                        featuredNode = clonedLink.querySelector('.archive-entry-featured')
-                    }
 
-                    if (dateNode) {
-                        dateNode.className = 'archive-post-date'
-                    }
+                        var featuredNode = metaNode.querySelector('.archive-entry-featured')
+                        if (featuredNode) {
+                            featuredNode.className = 'archive-post-featured'
+                        }
 
-                    if (featuredNode) {
-                        featuredNode.className = 'archive-post-featured'
-                        if (metaNode && dateNode) {
+                        var dateNode = metaNode.querySelector('.archive-entry-date')
+                        if (dateNode) {
+                            dateNode.className = 'archive-post-date'
+                        }
+
+                        if (featuredNode && dateNode && featuredNode.nextElementSibling !== dateNode) {
                             metaNode.insertBefore(featuredNode, dateNode)
+                        }
+                    }
+
+                    var dateNode = clonedLink.querySelector('.archive-post-date')
+                    if (!dateNode) {
+                        dateNode = clonedLink.querySelector('.archive-entry-date')
+                        if (dateNode) {
+                            dateNode.className = 'archive-post-date'
                         }
                     }
 
