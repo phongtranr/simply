@@ -10,49 +10,41 @@ import InfiniteScroll from 'infinite-scroll'
   if (!$feedElement) return
 
   const $viewMoreButton = document.querySelector('.load-more-btn')
-  // const $iconLoader = $viewMoreButton.querySelector('.icon')
-  // const $label = $viewMoreButton.querySelector('.label')
 
   const infScroll = new InfiniteScroll($feedElement, {
     append: '.js-story',
-    button: $viewMoreButton,
+    button: $viewMoreButton || undefined,
     history: false,
     debug: false,
     hideNav: '.pagination',
-    path: '.pagination .older-posts'
+    path: '.pagination .older-posts',
+    scrollThreshold: false
   })
 
-  infScroll.on('load', onPageLoad)
+  if ($viewMoreButton) {
+    $viewMoreButton.classList.remove('hidden')
+    $viewMoreButton.classList.add('flex')
+    $viewMoreButton.disabled = false
 
-  function onPageLoad () {
-    if (infScroll.loadCount === 1) {
-      // after 3nd page loaded
-      // disable loading on scroll
-      infScroll.options.loadOnScroll = false
-      // show button
-      $viewMoreButton.classList.add('flex')
-      $viewMoreButton.classList.remove('hidden')
-      // remove event listener
-      infScroll.off(onPageLoad)
-    }
+    infScroll.on('request', function () {
+      $viewMoreButton.disabled = true
+      $viewMoreButton.setAttribute('aria-busy', 'true')
+    })
+
+    infScroll.on('append', function () {
+      $viewMoreButton.disabled = false
+      $viewMoreButton.setAttribute('aria-busy', 'false')
+    })
+
+    infScroll.on('error', function () {
+      $viewMoreButton.disabled = false
+      $viewMoreButton.setAttribute('aria-busy', 'false')
+    })
+
+    infScroll.on('last', function () {
+      $viewMoreButton.classList.add('hidden')
+      $viewMoreButton.classList.remove('flex')
+      $viewMoreButton.setAttribute('aria-busy', 'false')
+    })
   }
-
-  // infScroll.on('request', function () {
-  //   $label.classList.add('hidden')
-  //   $iconLoader.classList.remove('hidden')
-  // })
-
-  // infScroll.on('append', function () {
-  //   $label.classList.remove('hidden')
-  //   $iconLoader.classList.add('hidden')
-  // })
-
-  $viewMoreButton.addEventListener('click', function () {
-    // load next page
-    infScroll.loadNextPage()
-    // enable loading on scroll
-    infScroll.options.loadOnScroll = true
-    // hide page
-    this.classList.add('hidden')
-  })
 })(document)
