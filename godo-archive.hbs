@@ -12,14 +12,22 @@
     <div class="archive-entries max-w-3xl mx-auto" data-archive-entries>
 
         {{#foreach posts}}
-            <article class="archive-entry" data-archive-entry data-year="{{date format="YYYY"}}" data-month="{{date format="MM"}}" data-month-name="{{date format="MMMM"}}">
+            <article class="archive-entry" data-archive-entry data-year="{{date format="YYYY"}}" data-month="{{date format="MM"}}" data-month-name="{{date format="MMMM"}}" data-featured="{{#if featured}}true{{else}}false{{/if}}">
                 <div class="archive-entry-heading flex items-baseline justify-between gap-4 px-6 pt-6">
                     <span class="archive-entry-month text-sm font-semibold uppercase tracking-[0.3em] text-gray-500">{{date format="MMMM"}}</span>
                     <span class="archive-entry-year text-xs font-semibold uppercase tracking-[0.35em] text-gray-400">{{date format="YYYY"}}</span>
                 </div>
                 <a class="archive-entry-link flex items-center justify-between gap-6 border-t border-gray-200 px-6 py-4 transition hover:bg-amber-300/60" href="{{url}}">
                     <span class="archive-entry-title text-lg font-semibold text-title">{{title}}</span>
-                    <time class="archive-entry-date shrink-0 text-sm font-medium uppercase tracking-[0.2em] text-gray-500" datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD MMM"}}</time>
+                    <span class="archive-entry-meta inline-flex items-center gap-3">
+                        {{#if featured}}
+                            <span class="archive-entry-featured" title="{{t "Featured"}}">
+                                <svg aria-hidden="true" class="icon icon--star"><use xlink:href="#icon-star"></use></svg>
+                                <span class="sr-only">{{t "Featured"}}</span>
+                            </span>
+                        {{/if}}
+                        <time class="archive-entry-date shrink-0 text-sm font-medium uppercase tracking-[0.2em] text-gray-500" datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD MMM"}}</time>
+                    </span>
                 </a>
             </article>
         {{/foreach}}
@@ -108,6 +116,11 @@
                 title.appendChild(suffix)
             }
 
+            var divider = document.createElement('span')
+            divider.className = 'tag-cloud-divider'
+            divider.setAttribute('aria-hidden', 'true')
+            title.appendChild(divider)
+
             header.appendChild(title)
             group.appendChild(header)
 
@@ -152,9 +165,19 @@
                         titleNode.className = 'archive-post-title'
                     }
 
+                    var metaNode = clonedLink.querySelector('.archive-entry-meta')
+                    if (metaNode) {
+                        metaNode.className = 'archive-post-meta'
+                    }
+
                     var dateNode = clonedLink.querySelector('.archive-entry-date')
                     if (dateNode) {
                         dateNode.className = 'archive-post-date'
+                    }
+
+                    var featuredNode = clonedLink.querySelector('.archive-entry-featured')
+                    if (featuredNode) {
+                        featuredNode.className = 'archive-post-featured'
                     }
 
                     item.appendChild(clonedLink)

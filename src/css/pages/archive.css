@@ -17,6 +17,7 @@
 
 .archive-entry-link {
   text-decoration: none;
+  align-items: center;
 }
 
 .archive-year-group + .archive-year-group {
@@ -32,7 +33,7 @@
 
 .archive-year-title {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 1rem;
   font-size: 2rem;
   font-weight: 700;
@@ -79,7 +80,7 @@
 .archive-post-link {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
   gap: 1.5rem;
   padding: 0.75rem 1.5rem;
   text-decoration: none;
@@ -104,6 +105,27 @@
   text-transform: uppercase;
   letter-spacing: 0.35rem;
   color: var(--gray-500);
+}
+
+.archive-entry-meta,
+.archive-post-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.archive-entry-featured,
+.archive-post-featured {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ghost-accent-color);
+}
+
+.archive-entry-featured .icon,
+.archive-post-featured .icon {
+  width: 1rem;
+  height: 1rem;
 }
 
 @media (min-width: 768px) {
