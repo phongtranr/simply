@@ -32,7 +32,9 @@
 /* ---------------------------------------------------------- */
 
 @import "./components/dropdown.css";
+@import "./components/home-cover.css";
 @import "./components/story.css";
+@import "./components/home.css";
 @import "./components/code.css";
 @import "./components/tag-cloud.css";
 @import "./components/hero.css";
