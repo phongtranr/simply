@@ -4,13 +4,8 @@
 {{!-- Last 5 featured articles slider - ./partials/home/featured-slider.hbs --}}
 {{#match @custom.publication_cover "Featured Slider"}}{{> "home/featured-slider"}}{{/match}}
 
-{{#is "paged"}}
-{{else}}
-    {{> "home/archive-year-strip"}}
-{{/is}}
-
 <div class="site-post container mx-auto py-vmin8">
-    <div class="js-feed-entry mx-auto grid w-full grid-cols-1 gap-6 max-w-1100 md:grid-cols-2 lg:grid-cols-12">
+    <div class="js-feed-entry max-w-1100 mx-auto grid md:grid-cols-2 lg:grid-cols-12 gap-6">
         {{#foreach posts}}
             {{#has number="6"}}
                 {{> "story/story-grid" story_class="ss1 grid lg:col-span-full lg:grid-cols-3 gap-6"}}
@@ -25,9 +20,3 @@
     {{!-- Pagination - partials/pagination.hbs --}}
     {{pagination}}
 </div>
-
-{{#is "paged"}}
-{{else}}
-    {{> "home/tag-cloud"}}
-    {{> "home/archive-year-strip"}}
-{{/is}}

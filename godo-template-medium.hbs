@@ -7,7 +7,7 @@
 {{#is "paged"}}
 
 <div class="site-post container mx-auto py-vmin8">
-    <div class="js-feed-entry mx-auto grid w-full grid-cols-1 gap-6 max-w-1100 md:grid-cols-2 lg:grid-cols-12">
+    <div class="js-feed-entry max-w-1100 mx-auto grid md:grid-cols-2 lg:grid-cols-12 gap-6">
         {{#foreach posts}}
             {{#has number="7, 8"}}
                 {{> "story/story-grid" story_class="ss2 lg:col-span-6"}}
@@ -39,10 +39,8 @@
     </div>
 </section>
 
-    {{> "home/archive-year-strip"}}
-
 <div class="site-post container mx-auto py-vmin8">
-    <div class="js-feed-entry mx-auto grid w-full grid-cols-1 gap-6 max-w-1100 md:grid-cols-2 lg:grid-cols-12">
+    <div class="js-feed-entry max-w-1100 mx-auto grid md:grid-cols-2 lg:grid-cols-12 gap-6">
         {{#foreach posts from="6" to="14"}}
             {{#has number="12, 13"}}
                 {{> "story/story-grid" story_class="ss2 lg:col-span-6"}}
@@ -58,10 +56,4 @@
     {{pagination}}
 </div>
 
-{{/is}}
-
-{{#is "paged"}}
-{{else}}
-    {{> "home/tag-cloud"}}
-    {{> "home/archive-year-strip"}}
 {{/is}}
