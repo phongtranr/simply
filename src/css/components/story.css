@@ -143,3 +143,39 @@
   letter-spacing: 0.35em;
 }
 
+.featured-collection-category {
+  align-self: flex-start;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.75);
+  color: var(--gray-700);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.featured-collection-category:hover,
+.featured-collection-category:focus-visible {
+  background: var(--ghost-accent-color);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+.featured-collection-excerpt {
+  color: var(--gray-600);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.dark .featured-collection-category {
+  background: rgba(15, 23, 42, 0.75);
+  color: var(--gray-200);
+}
+
+.dark .featured-collection-excerpt {
+  color: var(--gray-300);
+}
+

@@ -142,7 +142,18 @@
 
                 var monthHeading = document.createElement('h3')
                 monthHeading.className = 'archive-month-title'
-                monthHeading.textContent = monthInfo.name
+
+                var monthMarker = document.createElement('span')
+                monthMarker.className = 'archive-month-marker'
+                monthMarker.setAttribute('aria-hidden', 'true')
+                monthMarker.textContent = '✦'
+                monthHeading.appendChild(monthMarker)
+
+                var monthLabel = document.createElement('span')
+                monthLabel.className = 'archive-month-text'
+                monthLabel.textContent = monthInfo.name
+                monthHeading.appendChild(monthLabel)
+
                 monthSection.appendChild(monthHeading)
 
                 var list = document.createElement('ul')
@@ -166,18 +177,27 @@
                     }
 
                     var metaNode = clonedLink.querySelector('.archive-entry-meta')
+                    var dateNode
+                    var featuredNode
+
                     if (metaNode) {
                         metaNode.className = 'archive-post-meta'
+                        dateNode = metaNode.querySelector('.archive-entry-date')
+                        featuredNode = metaNode.querySelector('.archive-entry-featured')
+                    } else {
+                        dateNode = clonedLink.querySelector('.archive-entry-date')
+                        featuredNode = clonedLink.querySelector('.archive-entry-featured')
                     }
 
-                    var dateNode = clonedLink.querySelector('.archive-entry-date')
                     if (dateNode) {
                         dateNode.className = 'archive-post-date'
                     }
 
-                    var featuredNode = clonedLink.querySelector('.archive-entry-featured')
                     if (featuredNode) {
                         featuredNode.className = 'archive-post-featured'
+                        if (metaNode && dateNode) {
+                            metaNode.insertBefore(featuredNode, dateNode)
+                        }
                     }
 
                     item.appendChild(clonedLink)
