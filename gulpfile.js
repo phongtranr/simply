@@ -146,6 +146,16 @@ function images (done) {
   ], handleError(done))
 }
 
+function copyAmpStyle (done) {
+  pump([
+    src('assets/styles/amp.css'),
+    replace('@charset "UTF-8";', ''),
+    postcss([cssnano(), comments({ removeAll: true })]),
+    rename('amp-styles.hbs'),
+    dest('partials/amp')
+  ], handleError(done))
+}
+
 function copyMainStyle (done) {
   pump([
     src('assets/styles/main.css'),
@@ -166,7 +176,7 @@ function zipper (done) {
       'locales/*.json',
       '*.hbs',
       'partials/**',
-      'podcast/**',
+      'podcast/**',      
       'LICENSE',
       'package.json',
       'README.md',
@@ -178,6 +188,10 @@ function zipper (done) {
     dest('dist')
   ], handleError(done))
 }
+
+
+
+
 // TryGhost Admin
 const dotenv = require('dotenv')
 const path = require('path')
@@ -216,6 +230,7 @@ async function deploy (done) {
   }
 }
 
+
 const cssWatcher = () => watch('src/css/**', styles)
 const jsWatcher = () => watch(['src/js/**', '*.js'], scripts)
 const imgWatcher = () => watch('src/img/**', images)
@@ -226,7 +241,7 @@ const compile = parallel(styles, scripts, images)
 const watcher = parallel(cssWatcher, jsWatcher, imgWatcher, hbsWatcher)
 
 const build = series(clean, compile)
-const production = series(build, copyMainStyle, zipper)
+const production = series(build, copyAmpStyle, copyMainStyle, zipper)
 // const production = series(build)
 const development = series(build, serve, watcher)
 

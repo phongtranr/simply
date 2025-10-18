@@ -8,215 +8,40 @@
     </div>
 </header>
 
-<div class="site-post container mx-auto pb-10" data-archive-root data-year-label="{{t "Thoughts"}}">
-    <div class="archive-entries max-w-3xl mx-auto" data-archive-entries>
+<div class="site-post container mx-auto pb-10">
+    <div class="feed-entry-wrap max-w-3xl mx-auto">
 
         {{#foreach posts}}
-            <article class="archive-entry" data-archive-entry data-year="{{date format="YYYY"}}" data-month="{{date format="MM"}}" data-month-name="{{date format="MMMM"}}" data-featured="{{#if featured}}true{{else}}false{{/if}}">
-                <div class="archive-entry-heading flex items-baseline justify-between gap-4 px-6 pt-6">
-                    <span class="archive-entry-month text-sm font-semibold uppercase tracking-[0.3em] text-gray-500">{{date format="MMMM"}}</span>
-                    <span class="archive-entry-year text-xs font-semibold uppercase tracking-[0.35em] text-gray-400">{{date format="YYYY"}}</span>
+        <article class="archive-post archive-date-{{date format="M"}}">
+            <div class="archive-label text-primary px-6 mt-4 mb-2 text-2xl font-bold capitalize">{{date format="MMMM YYYY"}}</div>
+            <a class="archive-link px-6 block text-title hover:text-dark hover:bg-amber-300 rounded" href="{{url}}">
+                <div class="border-t border-gray-200 py-4">
+                    <h2 class="archive-title text-xl font-bold">{{title}}</h2>
+                    {{!-- Date Time and reading Time - ./partials/components/datetime.hbs --}}
+                    {{> "components/datetime" class="mt-2 text-gray-500 text-sm"}}
                 </div>
-                <a class="archive-entry-link flex items-center justify-between gap-6 border-t border-gray-200 px-6 py-4 transition hover:bg-amber-300/60" href="{{url}}">
-                    <span class="archive-entry-title text-lg font-semibold text-title">{{title}}</span>
-                    <span class="archive-entry-meta inline-flex items-center gap-3">
-                        {{#if featured}}
-                            <span class="archive-entry-featured" title="{{t "Featured"}}">
-                                <svg aria-hidden="true" class="icon icon--star"><use xlink:href="#icon-star"></use></svg>
-                                <span class="sr-only">{{t "Featured"}}</span>
-                            </span>
-                        {{/if}}
-                        <time class="archive-entry-date shrink-0 text-sm font-medium uppercase tracking-[0.2em] text-gray-500" datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD MMM"}}</time>
-                    </span>
-                </a>
-            </article>
+            </a>
+        </article>
         {{/foreach}}
     </div>
 </div>
 
-{{#contentFor "scripts"}}
-<script>
-    (function () {
-        var root = document.querySelector('[data-archive-root]')
-        if (!root) {
-            return
-        }
-
-        var entriesContainer = root.querySelector('[data-archive-entries]')
-        if (!entriesContainer) {
-            return
-        }
-
-        var entries = Array.prototype.slice.call(entriesContainer.querySelectorAll('[data-archive-entry]'))
-        if (!entries.length) {
-            return
-        }
-
-        var yearSuffix = root.getAttribute('data-year-label') || ''
-        var years = Object.create(null)
-
-        entries.forEach(function (entry) {
-            var year = entry.getAttribute('data-year')
-            var month = entry.getAttribute('data-month')
-            var monthName = entry.getAttribute('data-month-name')
-            if (!year || !month) {
-                return
-            }
-
-            if (!years[year]) {
-                years[year] = {
-                    order: [],
-                    months: Object.create(null)
-                }
-            }
-
-            var yearInfo = years[year]
-            if (!yearInfo.months[month]) {
-                yearInfo.months[month] = {
-                    name: monthName || month,
-                    entries: []
-                }
-                yearInfo.order.push(month)
-            }
-
-            yearInfo.months[month].entries.push(entry)
-        })
-
-        var sortedYears = Object.keys(years)
-        if (!sortedYears.length) {
-            return
-        }
-
-        sortedYears.sort(function (a, b) {
-            return parseInt(b, 10) - parseInt(a, 10)
-        })
-
-        var fragment = document.createDocumentFragment()
-
-        sortedYears.forEach(function (year) {
-            var group = document.createElement('section')
-            group.className = 'archive-year-group'
-            group.id = 'year-' + year
-
-            var header = document.createElement('header')
-            header.className = 'archive-year-header'
-
-            var title = document.createElement('h2')
-            title.className = 'archive-year-title'
-
-            var number = document.createElement('span')
-            number.className = 'archive-year-number'
-            number.textContent = year
-            title.appendChild(number)
-
-            if (yearSuffix) {
-                var suffix = document.createElement('span')
-                suffix.className = 'archive-year-suffix'
-                suffix.textContent = yearSuffix
-                title.appendChild(suffix)
-            }
-
-            var divider = document.createElement('span')
-            divider.className = 'tag-cloud-divider'
-            divider.setAttribute('aria-hidden', 'true')
-            title.appendChild(divider)
-
-            header.appendChild(title)
-            group.appendChild(header)
-
-            var monthWrapper = document.createElement('div')
-            monthWrapper.className = 'archive-months'
-
-            var sortedMonths = years[year].order.slice().sort(function (a, b) {
-                return parseInt(b, 10) - parseInt(a, 10)
-            })
-
-            sortedMonths.forEach(function (month) {
-                var monthInfo = years[year].months[month]
-                if (!monthInfo) {
-                    return
-                }
-
-                var monthSection = document.createElement('section')
-                monthSection.className = 'archive-month-group'
-
-                var monthHeading = document.createElement('h3')
-                monthHeading.className = 'archive-month-title'
-
-                var monthBullet = document.createElement('span')
-                monthBullet.className = 'archive-month-bullet'
-                monthBullet.setAttribute('aria-hidden', 'true')
-                monthBullet.textContent = '✦'
-                monthHeading.appendChild(monthBullet)
-
-                var monthLabel = document.createElement('span')
-                monthLabel.className = 'archive-month-label'
-                monthLabel.textContent = monthInfo.name
-                monthHeading.appendChild(monthLabel)
-
-                monthSection.appendChild(monthHeading)
-
-                var list = document.createElement('ul')
-                list.className = 'archive-post-list'
-
-                monthInfo.entries.forEach(function (entry) {
-                    var link = entry.querySelector('.archive-entry-link')
-                    if (!link) {
-                        return
-                    }
-
-                    var item = document.createElement('li')
-                    item.className = 'archive-post-item'
-
-                    var clonedLink = link.cloneNode(true)
-                    clonedLink.className = 'archive-post-link'
-
-                    var titleNode = clonedLink.querySelector('.archive-entry-title')
-                    if (titleNode) {
-                        titleNode.className = 'archive-post-title'
-                    }
-
-                    var metaNode = clonedLink.querySelector('.archive-entry-meta')
-                    if (metaNode) {
-                        metaNode.className = 'archive-post-meta'
-
-                        var featuredNode = metaNode.querySelector('.archive-entry-featured')
-                        if (featuredNode) {
-                            featuredNode.className = 'archive-post-featured'
-                        }
-
-                        var dateNode = metaNode.querySelector('.archive-entry-date')
-                        if (dateNode) {
-                            dateNode.className = 'archive-post-date'
-                        }
-
-                        if (featuredNode && dateNode && featuredNode.nextElementSibling !== dateNode) {
-                            metaNode.insertBefore(featuredNode, dateNode)
-                        }
-                    }
-
-                    var dateNode = clonedLink.querySelector('.archive-post-date')
-                    if (!dateNode) {
-                        dateNode = clonedLink.querySelector('.archive-entry-date')
-                        if (dateNode) {
-                            dateNode.className = 'archive-post-date'
-                        }
-                    }
-
-                    item.appendChild(clonedLink)
-                    list.appendChild(item)
-                })
-
-                monthSection.appendChild(list)
-                monthWrapper.appendChild(monthSection)
-            })
-
-            group.appendChild(monthWrapper)
-            fragment.appendChild(group)
-        })
-
-        entriesContainer.innerHTML = ''
-        entriesContainer.appendChild(fragment)
-    })()
-</script>
+{{!-- https://forum.ghost.org/t/monthly-archive-index-pages/12110/2 --}}
+{{#contentFor "header"}}
+<style>
+    .archive-date-1 + .archive-date-1 .archive-label,
+    .archive-date-2 + .archive-date-2 .archive-label,
+    .archive-date-3 + .archive-date-3 .archive-label,
+    .archive-date-4 + .archive-date-4 .archive-label,
+    .archive-date-5 + .archive-date-5 .archive-label,
+    .archive-date-6 + .archive-date-6 .archive-label,
+    .archive-date-7 + .archive-date-7 .archive-label,
+    .archive-date-8 + .archive-date-8 .archive-label,
+    .archive-date-9 + .archive-date-9 .archive-label,
+    .archive-date-10 + .archive-date-10 .archive-label,
+    .archive-date-11 + .archive-date-11 .archive-label,
+    .archive-date-12 + .post-date-12 .archive-label {
+        display: none;
+    }
+</style>
 {{/contentFor}}

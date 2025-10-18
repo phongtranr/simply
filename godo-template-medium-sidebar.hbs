@@ -29,14 +29,9 @@
 </div>
 {{/post}}
 
-{{#is "paged"}}
-{{else}}
-    {{> "home/archive-year-strip"}}
-{{/is}}
-
 <div class="container mx-auto px-4 py-vmin8 grid gap-10 xl:gap-20 lg:grid-cols-sidebar">
     <div>
-        <div class="js-feed-entry w-full">
+        <div class="js-feed-entry">
             {{#foreach posts}}
 
             <article class="js-story mb-12 flex justify-between items-center">
@@ -99,9 +94,3 @@
         </div>
     </aside>
 </div>
-
-{{#is "paged"}}
-{{else}}
-    {{> "home/tag-cloud"}}
-    {{> "home/archive-year-strip"}}
-{{/is}}

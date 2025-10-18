@@ -38,7 +38,7 @@
     "email": "hello@godofredo.ninja"
   },
   "config": {
-    "posts_per_page": 4,
+    "posts_per_page": 18,
     "image_sizes": {
       "xxs": {
         "width": 30
@@ -134,11 +134,6 @@
       },
       "publication_cover_img": {
         "type": "image",
-        "group": "homepage"
-      },
-      "home_archive_strip": {
-        "type": "boolean",
-        "default": true,
         "group": "homepage"
       },
       "post_font": {
