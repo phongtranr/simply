@@ -7,6 +7,65 @@
   text-decoration: underline;
 }
 
+.site-post {
+  overflow-x: clip;
+}
+
+@supports not (overflow: clip) {
+  .site-post {
+    overflow-x: hidden;
+  }
+}
+
+.js-feed-entry {
+  width: 100%;
+}
+
+.js-feed-entry > * {
+  min-width: 0;
+}
+
+.story {
+  .story-card {
+    position: relative;
+    z-index: 0;
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      border: 0.125rem solid transparent;
+      pointer-events: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      z-index: 1;
+    }
+  }
+
+  .story-image,
+  .story-body {
+    position: relative;
+    z-index: 0;
+  }
+
+  &:hover .story-card::after,
+  &:focus-within .story-card::after {
+    border-color: var(--story-card-ring);
+  }
+
+  &:focus-within .story-card::after {
+    border-color: var(--story-card-ring-strong);
+    box-shadow: 0 0 0 0.25rem var(--story-card-ring);
+  }
+}
+
+.dark .story {
+  &:hover .story-card::after,
+  &:focus-within .story-card::after {
+    border-color: var(--story-card-ring);
+  }
+}
+
 /* Story card small
 /* ---------------------------------------------------------- */
 
@@ -27,7 +86,7 @@
   .story-image {
     @apply lg:col-span-2 lg:h-96 lg:pt-0;
   }
-  & > .not-feature-image {
+  &.story--no-image > .story-card {
     @apply lg:col-span-full;
   }
 }
@@ -39,5 +98,48 @@
   .story-title {
     @apply lg:text-3xl;
   }
+}
+
+.home-featured-collection {
+  background: var(--bg-base);
+}
+
+.hh-date .featured-indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.5rem;
+  color: var(--ghost-accent-color);
+}
+
+.hh-date .featured-indicator .icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.featured-collection-grid {
+  @apply md:grid-cols-3;
+}
+
+.featured-collection-card {
+  @apply h-full;
+}
+
+.featured-collection-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0) 55%, rgba(15, 23, 42, 0.1) 100%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.featured-collection-card:hover .featured-collection-image::after,
+.featured-collection-card:focus-within .featured-collection-image::after {
+  opacity: 1;
+}
+
+.featured-collection-tag {
+  letter-spacing: 0.35em;
 }
 
