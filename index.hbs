@@ -4,6 +4,11 @@
 {{!-- Publication Cover - partials/home/publication-cover.hbs --}}
 {{> "home/publication-cover"}}
 
+{{#is "paged"}}
+{{else}}
+    {{> "home/featured-collection"}}
+{{/is}}
+
 {{!-- Feed Stories --}}
 <div class="site-post container mx-auto py-vmin8">
     <div class="js-feed-entry mx-auto grid w-full grid-cols-1 gap-6 max-w-1100 md:grid-cols-2 lg:grid-cols-12">
